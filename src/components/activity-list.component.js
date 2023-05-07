@@ -5,9 +5,11 @@ import axios from 'axios';
 function Activity(props) {
     return(
         <tr>
+            <td>{props.activity.activityType}</td>
             <td>{props.activity.name}</td>
-            <td>{props.activity.location}</td>
             <td>{props.activity.description}</td>
+            <td>{props.activity.price}</td>
+            <td>{props.activity.currentMember}/{props.activity.minMember}</td>
             <td>{props.activity.date.substring(0, 10)}</td>
             <td>
                 <Link to={"/edit/" + props.activity._id}>Edit</Link> | <a href="#" onClick={() => props.deleteActivity(props.activity._id)}>Delete</a>
@@ -58,15 +60,17 @@ export default class ActivitiesList extends Component {
     render() {
         return (
             <div>
-                <h3>Logged Activities</h3>
+                <h3>活動清單</h3>
                 <table className='table'>
                     <thead className='thead-light'>
                         <tr>
-                            <th>Name</th>
-                            <th>location</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Actions</th>
+                            <th>活動類型</th>
+                            <th>商品名稱</th>
+                            <th>商品概述</th>
+                            <th>商品價格</th>
+                            <th>目前參加人數/最低成團人數</th>
+                            <th>結單日期</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>

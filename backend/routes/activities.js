@@ -10,15 +10,21 @@ router.route('/').get((req, res) => {
 
 // add new exercise into database
 router.route('/add').post((req, res) => {
+    const activityType = req.body.activityType;
     const name = req.body.name;
-    const location = req.body.location;
     const description = req.body.description;
+    const price = Number(req.body.price);
+    const minMember = Number(req.body.minMember);
+    const currentMember = 0;
     const date = Date.parse(req.body.date);
 
     const newActivity = new Activity({
+        activityType,
         name,
-        location,
         description,
+        price,
+        minMember,
+        currentMember,
         date,
     });
 
@@ -42,9 +48,11 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Activity.findById(req.params.id)
     .then(activity => {
+        activity.activityType = req.body.activityType;
         activity.name = req.body.name;
-        activity.location = req.body.location;
         activity.description = req.body.description;
+        activity.price = Number(req.body.price);
+        activity.minMember = Number(req.body.minMember);
         activity.date = Date.parse(req.body.date);
 
         activity.save()

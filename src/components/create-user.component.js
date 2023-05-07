@@ -33,7 +33,7 @@ export default class CreateUser extends Component {
 
         // clear username after submitted
         this.setState({
-            username: ''
+            username: '',
         });
     }
 

@@ -11,7 +11,14 @@ router.route('/').get((req, res) => {
 // add new user into database
 router.route('/add').post((req, res) => {
     const username = req.body.username;
-    const newUser = new User({username});
+    const engagedActivity = [];
+    const hostedActivity = [];
+
+    const newUser = new User({
+        username,
+        engagedActivity,
+        hostedActivity,
+    });
 
     newUser.save()
     .then(() => res.json('User added!'))

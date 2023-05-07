@@ -7,16 +7,21 @@ export default class EditActivities extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeActivityType = this.onChangeActivityType.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeDuration = this.onChangeDuration.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
+        this.onChangeMinMember = this.onChangeMinMember.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username: '',
+            activityType: '',
+            name: '',
             description: '',
-            duration: 0,
+            price: 0,
+            minMember: 0,
+            currentMember: 0,
             date: new Date(),
         }
     }
@@ -26,9 +31,12 @@ export default class EditActivities extends Component {
         axios.get('http://localhost:5000/activities/' + arr[arr.length-1])
             .then(response => {
                 this.setState({
-                    username: response.data.username,
+                    activityType: response.data.activityType,
+                    name: response.data.name,
                     description: response.data.description,
-                    duration: response.data.duration,
+                    price: response.data.price,
+                    minMember: response.data.minMember,
+                    currentMember: response.data.currentMember,
                     date: new Date(response.data.date)
                 })
             })
@@ -37,9 +45,15 @@ export default class EditActivities extends Component {
             })
     }
 
-    onChangeUsername(event) {
+    onChangeActivityType(event) {
         this.setState({
-            username: event.target.value
+            activityType: event.target.value
+        });
+    }
+
+    onChangeName(event) {
+        this.setState({
+            name: event.target.value
         });
     }
 
@@ -49,9 +63,15 @@ export default class EditActivities extends Component {
         });
     }
 
-    onChangeDuration(event) {
+    onChangePrice(event) {
         this.setState({
-            duration: event.target.value
+            price: event.target.value
+        });
+    }
+
+    onChangeMinMember(event) {
+        this.setState({
+            minMember: event.target.value
         });
     }
 
@@ -64,17 +84,19 @@ export default class EditActivities extends Component {
     onSubmit(event) {
         event.preventDefault();
 
-        const exercise = {
-            username: this.state.username,
+        const activity = {
+            activityType: this.state.activityType,
+            name: this.state.name,
             description: this.state.description,
-            duration: this.state.duration,
+            price: this.state.price,
+            minMember: this.state.minMember,
             date: this.state.date,
         }
 
-        console.log(exercise);
+        console.log(activity);
 
         const arr = window.location.href.split("/");
-        axios.post('http://localhost:5000/activities/update/' + arr[arr.length-1], exercise)
+        axios.post('http://localhost:5000/activities/update/' + arr[arr.length-1], activity)
             .then(res => console.log(res.data));
 
         window.location = "/";
@@ -83,20 +105,32 @@ export default class EditActivities extends Component {
     render() {
         return (
             <div>
-                <h3>Edit Exercise Log</h3>
+                <h3>編輯活動</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Username: </label>
+                        <label>活動類型: </label>
+                        <select ref="userInput"
+                            required
+                            className='form-control'
+                            value={this.state.activityType}
+                            onChange={this.onChangeActivityType}>
+                                <option value="Product">商品</option>
+                                <option value="Activity">活動</option>
+                        </select>
+                    </div>
+                    <br />
+                    <div className="form-group">
+                        <label>商品名稱: </label>
                         <input 
                             type="text"
-                            className='form-contorl'
-                            value={this.state.username}
-                            readOnly={true}
+                            className='form-control'
+                            value={this.state.name}
+                            onChange={this.onChangeName}
                         />
                     </div>
                     <br />
                     <div className="form-group">
-                        <label>Description: </label>
+                        <label>商品概述: </label>
                         <input
                             type='text'
                             required
@@ -107,17 +141,27 @@ export default class EditActivities extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <label>Duration (in minutes): </label>
+                        <label>商品價格: </label>
                         <input
                             type="text"
                             className="form-control"
-                            value={this.state.duration}
-                            onChange={this.onChangeDuration}
+                            value={this.state.price}
+                            onChange={this.onChangePrice}
                         />
                     </div>
                     <br />
                     <div className="form-group">
-                        <label>Date: </label>
+                        <label>最低成團人數: </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={this.state.minMember}
+                            onChange={this.onChangeMinMember}
+                        />
+                    </div>
+                    <br />
+                    <div className="form-group">
+                        <label>結單日期: </label>
                         <div>
                             <DatePicker
                                 selected={this.state.date}
@@ -127,7 +171,7 @@ export default class EditActivities extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
+                        <input type="submit" value="儲存活動" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

@@ -9,10 +9,15 @@ const userSchema = new Schema({
         trim: true,
         minlength: 3,
     },
+    engagedActivity: {
+        type: Array,
+    },
+    hostedActivity: {
+        type: Array,
+    }
 }, {
     timestamps: true,
 });
 
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

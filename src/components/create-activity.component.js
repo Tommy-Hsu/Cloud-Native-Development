@@ -3,20 +3,28 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+const moment = require('moment-timezone');
+
 export default class CreateActivity extends Component {
     constructor(props) {
         super(props);
 
+        this.onChangeActivityType = this.onChangeActivityType.bind(this);
         this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeLocation = this.onChangeLocation.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
+        this.onChangeMinMember = this.onChangeMinMember.bind(this);
+        this.onChangeCurrentMember = this.onChangeCurrentMember.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
+            activityType: 'Product',
             name: '',
-            location: '',
             description: '',
+            price: 0,
+            minMember: 0,
+            currentMember: 0,
             date: new Date(),
             users: []
         }
@@ -35,21 +43,39 @@ export default class CreateActivity extends Component {
         //     })
     }
 
+    onChangeActivityType(event) {
+        this.setState({
+            activityType: event.target.value
+        });
+    }
+
     onChangeName(event) {
         this.setState({
             name: event.target.value
         });
     }
 
-    onChangeLocation(event) {
-        this.setState({
-            location: event.target.value
-        });
-    }
-
     onChangeDescription(event) {
         this.setState({
             description: event.target.value
+        });
+    }
+
+    onChangePrice(event) {
+        this.setState({
+            price: event.target.value
+        });
+    }
+
+    onChangeMinMember(event) {
+        this.setState({
+            minMember: event.target.value
+        });
+    }
+
+    onChangeCurrentMember(event) {
+        this.setState({
+            currentMember: event.target.value
         });
     }
 
@@ -63,9 +89,12 @@ export default class CreateActivity extends Component {
         event.preventDefault();
 
         const activity = {
+            activityType: this.state.activityType,
             name: this.state.name,
-            location: this.state.location,
             description: this.state.description,
+            price: this.state.price,
+            minMember: this.state.minMember,
+            currentMember: this.state.currentMember,
             date: this.state.date
         }
 
@@ -84,21 +113,19 @@ export default class CreateActivity extends Component {
                 <h3>Create New Activity </h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>團名: </label>
-                        {/* <select ref="userInput"
+                        <label>活動類型: </label>
+                        <select ref="userInput"
                             required
                             className='form-control'
-                            value={this.state.name}
-                            onChange={this.onChangeName}>
-                            {
-                                this.state.users.map(function(user) {
-                                    return <option
-                                        key={user}
-                                        value={user}>{user}
-                                        </option>
-                                })
-                            }
-                        </select> */}
+                            value={this.state.activityType}
+                            onChange={this.onChangeActivityType}>
+                                <option value="Product">商品</option>
+                                <option value="Activity">活動</option>
+                        </select>
+                    </div>
+                    <br />
+                    <div>
+                        <label>商品名稱: </label>
                         <input
                             type="text"
                             className="form-control"
@@ -108,17 +135,7 @@ export default class CreateActivity extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <label>Location : </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.location}
-                            onChange={this.onChangeLocation}
-                        />
-                    </div>
-                    <br />
-                    <div className="form-group">
-                        <label>Description: </label>
+                        <label>商品概述: </label>
                         <input
                             type='text'
                             required
@@ -129,7 +146,27 @@ export default class CreateActivity extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <label>Date: </label>
+                        <label>商品價格: </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={this.state.price}
+                            onChange={this.onChangePrice}
+                        />
+                    </div>
+                    <br />
+                    <div className="form-group">
+                        <label>最低成團人數: </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={this.state.minMember}
+                            onChange={this.onChangeMinMember}
+                        />
+                    </div>
+                    <br />
+                    <div className="form-group">
+                        <label>結單日期: </label>
                         <div>
                             <DatePicker
                                 selected={this.state.date}
@@ -139,7 +176,7 @@ export default class CreateActivity extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <input type="submit" value="Create Activity" className="btn btn-primary" />
+                        <input type="submit" value="建立活動" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

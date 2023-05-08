@@ -5,14 +5,12 @@
 git clone https://github.com/Tommy-Hsu/Cloud-Native-Development.git
 ```
 
-2. In the project directory, you can run `npm start` to run the app.
+2. In the project directory, you can run `docker-compose up` to run the app.
 ```
-npm start
+docker-compose up
 ```
-Runs the app in the development mode. 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser. \
-The page will reload when you make changes.
-You may also see any lint errors in the console.
+Runs the app in two containers: `myapp-frontend` and `myapp-backend`. \
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 3. `cd` to the `backend` directory, and start the mongoDB server:
 ```
@@ -21,8 +19,14 @@ nodemon ./server.js
 ```
 
 ## Available Scripts
-
 In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode. 
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser. \
+The page will reload when you make changes.
+You may also see any lint errors in the console.
 
 ### `npm test`
 

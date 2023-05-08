@@ -1,0 +1,27 @@
+version: "1.0"
+services:
+  myapp-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    container_name: myapp_frontend
+    networks:
+      - myapp-net
+    depends_on:
+      - myapp-backend
+
+  myapp-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    container_name: myapp_backend
+    networks:
+      - myapp-net
+
+networks:
+  myapp-net:
+    driver: bridge

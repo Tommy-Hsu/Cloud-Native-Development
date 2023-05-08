@@ -3,8 +3,6 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const moment = require('moment-timezone');
-
 export default class CreateActivity extends Component {
     constructor(props) {
         super(props);

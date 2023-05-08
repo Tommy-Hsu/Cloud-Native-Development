@@ -2,21 +2,21 @@
 
 1. Clone this github repo.
 ```
-git clone https://github.com/Tommy-Hsu/Cloud-Native-Development.git
+$ git clone https://github.com/Tommy-Hsu/Cloud-Native-Development.git
 ```
 
 2. In the project directory, you can run `docker-compose up` to run the app.
 ```
-docker-compose up
+$ docker-compose up
 ```
 Runs the app in two containers: `myapp-frontend` and `myapp-backend`. \
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-3. `cd` to the `backend` directory, and start the mongoDB server:
+3. When you are finished, run the following command to clear the containers.
 ```
-cd backend/
-nodemon ./server.js
+$ docker container rm --force $(docker container ls --all --quiet)
 ```
+
 
 ## Available Scripts
 In the project directory, you can run:

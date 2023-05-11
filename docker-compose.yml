@@ -1,27 +1,42 @@
-version: "1.0"
+version: "3.9"
+
 services:
-  myapp-frontend:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    container_name: myapp_frontend
+    container_name: frontend
     networks:
-      - myapp-net
+      - cilltan
     depends_on:
-      - myapp-backend
-
-  myapp-backend:
+      - db-endpoints-server
+      - create-join-group-server
+  
+  db-endpoints-server:
     build:
-      context: ./backend/server
+      context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
     ports:
       - 5000:5000
-    container_name: myapp_backend
+    container_name: db-endpoints-server
     networks:
-      - myapp-net
+      - cilltan
+
+  create-join-group-server:
+    build:
+      context: ./backend/create-join-group-server
+      dockerfile: Dockerfile
+    image: create-join-group-server:latest
+    container_name: create-join-group-server
+    environment:
+      - ATLAS_URI=${ATLAS_URI}
+    networks:
+      - cilltan
+    ports:
+      - 8080:5000
 
 networks:
-  myapp-net:
+  cilltan:
     driver: bridge

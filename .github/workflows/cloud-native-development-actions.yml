@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-
+env:
+  ATLAS_URI : ${{ secrets.ATLASURI  }}
 jobs:
   Check_Docker_compose:
     runs-on: ubuntu-latest

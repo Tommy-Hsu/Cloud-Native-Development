@@ -1,4 +1,4 @@
-name: Docker Compose and Dockerfile Check
+name: Docker-Compose and Dockerfile Check
 on:
   push:
     branches:

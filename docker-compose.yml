@@ -13,13 +13,14 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
+      - user-sign-up-server
   
   db-endpoints-server:
     build:
       context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
     ports:
-      - 5000:5000
+      - 7777:5000
     container_name: db-endpoints-server
     networks:
       - cilltan
@@ -36,6 +37,17 @@ services:
       - cilltan
     ports:
       - 8080:5000
+  
+  user-sign-up-server:
+    build: 
+      context: ./backend/user-sign-up-server
+      dockerfile: Dockerfile
+    # image: user-sign-up-server:latest
+    ports:
+      - 8081:5000
+    container_name: user-sign-up-server
+    networks:
+      - cilltan
 
 networks:
   cilltan:

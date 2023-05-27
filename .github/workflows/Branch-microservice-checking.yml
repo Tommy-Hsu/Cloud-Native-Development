@@ -1,0 +1,24 @@
+name: Branch-microservice-checking
+on:
+  push:
+    branches:
+      - user-signupin
+env:
+  ATLAS_URI : ${{ secrets.ATLASURI  }}
+jobs:
+  Check_Docker_compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Build and run Docker Compose
+        run: |
+          docker-compose up
+
+      - name: Run tests with Docker Compose
+        run: |
+          # Run your tests against the running Docker Compose services
+
+      - name: Clean up
+        run: docker-compose down

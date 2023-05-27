@@ -1,0 +1,25 @@
+/* 在 Create.css */
+.create-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .create-input,
+  .create-select,
+  .create-button {
+    height: 40px;
+  }
+  
+  .create-textarea {
+    height: 100px;
+  }
+  
+  .create-button {
+    background-color: purple;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  

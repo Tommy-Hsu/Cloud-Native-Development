@@ -1,4 +1,71 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* base styles */
+* {
+  margin: 0;
+  font-family: "Quicksand";
+  color: #333;
+}
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.search-exercise {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-left: 700px
+}
+.navbar input {
+  height: 50px;
+  width: 300px;
+  padding: 3px 10px;
+  font-size: 16px;
+  margin-right: 5px
+}
+.search-button {
+  background-color: #6c5ce7;
+  width: 80px;
+  height: 40px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 3px 10px;
+  box-shadow: 0px 0px 10px #6c5ce7;
+}
+.search-button:hover {
+  background-color: #816dfb;
+}
+.navbar .links {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-left: auto;
+}
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: #f1356d;
+}
+.content {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +77,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */

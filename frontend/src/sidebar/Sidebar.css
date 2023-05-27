@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #f0f0f0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .sidebar .sidebar-title {
+    text-decoration: none;
+    color: black;
+  }
+  .sidebar h1 {
+    color: #f1356d;
+    margin-bottom: 20px;
+  }
+  .sidebar h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 450px
+  }
+  
+  .sidebar li {
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  
+  .sidebar li:hover {
+    background-color: #ddd;
+  }
+  .sidebar-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-top: auto;  /* 讓按鈕處於 sidebar 的底部 */
+    background-color: purple;
+    color: white;
+    text-decoration: none;  /* 去掉 link 的下劃線 */
+    border-radius: 4px;
+    /* padding: 20px 30px;
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px; 添加一些圓角 */
+  }
+  
+  .sidebar-button:hover {
+    background-color: #816dfb; /* 當鼠標懸停時改變按鈕顏色 */
+  }

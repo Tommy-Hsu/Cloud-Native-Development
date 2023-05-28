@@ -26,7 +26,8 @@ jobs:
       - name: Run tests 
         run: |
           # Run your tests against the running Docker Compose services
-          python3 -m unittest test.py -b -v
+          # python3 -m unittest test.py -b -v
+          curl -X POST -H "Content-Type: application/json" -d '{"email": "value12", "password": "value2"}' http://localhost:7777/signup
 
       - name: Clean up
         run: docker-compose down

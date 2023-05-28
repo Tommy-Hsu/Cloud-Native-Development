@@ -14,11 +14,10 @@ jobs:
           ref: user-signupin
         
       - name: Build and run Docker Compose
-        # env:
-        #   ATLAS_URI : ${{ secrets.ATLASURI  }}
+        env:
+          ATLAS_URI : ${{ secrets.ATLASURI  }}
         run: |
-          echo ATLAS_URI=${{ secrets.ATLASURI }} > .env
-          cat .env
+          echo $ATLAS_URI > .env
           docker-compose up -d
           
       - name: Set up environments

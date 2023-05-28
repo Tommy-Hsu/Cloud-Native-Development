@@ -16,13 +16,13 @@ class MyResourceTestCase(unittest.TestCase):
 
     def test_signup_post_request(self):
         self.assertIsNotNone(self.client)
-        response = requests.post('http://127.0.0.1:5000/signup', headers={"Content-Type": "application/json"}, data=json.dumps(self.payload))
+        response = requests.post('http://127.0.0.1:8081/signup', headers={"Content-Type": "application/json"}, data=json.dumps(self.payload))
         self.assertEqual(201, response.status_code)
         self.assertEqual({'msg': 0}, response.json())
         
     def test_signup_post_request_with_existing_email(self):
         self.assertIsNotNone(self.client)
-        response = requests.post('http://127.0.0.1:5000/signup', headers={"Content-Type": "application/json"}, data=json.dumps(self.payload))
+        response = requests.post('http://127.0.0.1:8081/signup', headers={"Content-Type": "application/json"}, data=json.dumps(self.payload))
         self.assertEqual(409, response.status_code)
         self.assertEqual({'msg': 1}, response.json())
     

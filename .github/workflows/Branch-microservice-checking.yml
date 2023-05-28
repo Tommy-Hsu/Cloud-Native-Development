@@ -21,9 +21,8 @@ jobs:
           
       - name: Set up environments
         run: |
-          python3 -m pip3 install --upgrade pip3
-          if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-
+          python3 -m pip install --upgrade pip
+          if [ -e requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run tests 
         run: |
           # Run your tests against the running Docker Compose services

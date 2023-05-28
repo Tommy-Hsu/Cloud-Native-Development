@@ -14,4 +14,4 @@ api.add_resource(CreateUser, "/signup", resource_class_kwargs={'databasepath': o
 api.add_resource(SigninUser, "/signin")
 
 if __name__ == "__main__":
-  server.run(port=8080)
+  server.run()

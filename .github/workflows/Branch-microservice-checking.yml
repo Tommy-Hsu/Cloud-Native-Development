@@ -8,9 +8,12 @@ env:
 jobs:
   Check_Docker_compose:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/user-signupin'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: user-signupin
         
       - name: Build and run Docker Compose
         run: |

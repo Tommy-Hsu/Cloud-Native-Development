@@ -17,11 +17,14 @@ jobs:
         
       - name: Build and run Docker Compose
         run: |
-          docker-compose up
+          docker-compose up -d
 
-      - name: Run tests with Docker Compose
+      - name: Run tests 
         run: |
           # Run your tests against the running Docker Compose services
+          cd backend
+          cd user-signupin-server
+          python3 -m unittest test.py -b -v
 
       - name: Clean up
         run: docker-compose down

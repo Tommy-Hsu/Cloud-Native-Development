@@ -13,7 +13,7 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
-      - user-sign-up-server
+      - user-signupin-server
   
   db-endpoints-server:
     build:

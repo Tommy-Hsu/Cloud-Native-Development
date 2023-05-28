@@ -15,7 +15,7 @@ jobs:
         
       - name: Build and run Docker Compose
         env:
-          ATLAS_URI : $ATLAS_URI # Atlas URI
+          ATLAS_URI : ${ATLAS_URI} # Atlas URI
         run: |
           docker-compose up -d
           

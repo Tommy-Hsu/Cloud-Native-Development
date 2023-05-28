@@ -29,7 +29,7 @@ class MyResourceTestCase(unittest.TestCase):
     def tearDown(self) -> None:
         myclient = MongoClient(os.environ.get("ATLAS_URI"))
         print(os.environ.get("ATLAS_URI"))
-        print(myclient.list_database_names())
+        # print(myclient.list_database_names())
         # database = myclient["test"]
         # print(database.list_collection_names())
         # mycol = database["emails"]

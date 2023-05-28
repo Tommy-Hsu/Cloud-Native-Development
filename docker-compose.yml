@@ -40,7 +40,7 @@ services:
   
   user-sign-up-server:
     build: 
-      context: ./backend/user-sign-up-server
+      context: ./backend/user-signupin-server
       dockerfile: Dockerfile
     # image: user-sign-up-server:latest
     ports:

@@ -27,7 +27,7 @@ class MyResourceTestCase(unittest.TestCase):
         self.assertEqual({'msg': 1}, response.json())
     
     def tearDown(self) -> None:
-        myclient = MongoClient(os.environ.get("ATLAS_URI"))
+        # myclient = MongoClient(os.environ.get("ATLAS_URI"))
         print(os.environ.get("ATLAS_URI"))
         # print(myclient.list_database_names())
         # database = myclient["test"]

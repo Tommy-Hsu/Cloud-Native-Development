@@ -10,7 +10,7 @@ RUN npm i
 # Copies the source code into "/server"
 COPY models ./models
 COPY routes ./routes
-COPY .env .
+# COPY .env .
 COPY server.js .
 
 # Specifies the port the mongodb will be running on

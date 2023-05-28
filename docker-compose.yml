@@ -20,7 +20,7 @@ services:
       context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
     ports:
-      - 7777:5000
+      - 7000:5000
     container_name: db-endpoints-server
     networks:
       - cilltan
@@ -43,9 +43,9 @@ services:
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
     environment:
-      - ATLAS_URI=${ATLAS_URI:?err}
+      - ATLAS_URI=${ATLAS_URI}
     ports:
-      - 8081:5000
+      - 7777:5000
     container_name: user-signupin-server
     networks:
       - cilltan

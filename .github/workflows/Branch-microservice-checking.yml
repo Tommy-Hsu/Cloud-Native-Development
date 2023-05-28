@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - 'user-signupin'
+env:
+  ATLAS_URI : ${{ secrets.ATLASURI  }}
 jobs:
   Check_Docker_compose:
     runs-on: ubuntu-latest
@@ -14,15 +16,13 @@ jobs:
           ref: user-signupin
         
       - name: Build and run Docker Compose
-        env:
-          ATLAS_URI : ${ATLAS_URI} # Atlas URI
         run: |
           docker-compose up -d
           
       - name: Set up environments
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python3 -m pip3 install --upgrade pip3
+          if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
 
       - name: Run tests 
         run: |

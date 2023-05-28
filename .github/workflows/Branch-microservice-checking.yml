@@ -18,6 +18,7 @@ jobs:
           ATLAS_URI : ${{ secrets.ATLASURI  }}
         run: |
           echo $ATLAS_URI
+          cat .env
           docker-compose up -d
           
       - name: Set up environments

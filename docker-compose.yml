@@ -43,7 +43,7 @@ services:
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
     environment:
-      - ATLAS_URI=${ATLAS_URI}
+      - ATLAS_URI=${ATLAS_URI:?err}
     ports:
       - 8081:5000
     container_name: user-signupin-server

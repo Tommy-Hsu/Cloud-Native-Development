@@ -2,7 +2,7 @@ name: Branch-microservice-checking
 on:
   push:
     branches:
-      - user-signupin
+      - 'user-signupin'
 env:
   ATLAS_URI : ${{ secrets.ATLASURI  }}
 jobs:

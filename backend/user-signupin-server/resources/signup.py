@@ -1,5 +1,6 @@
 import os
 from pymongo import MongoClient
+from flask import jsonify, make_response
 from flask_restful import Api, Resource, reqparse
 from schema import Schema, And, Use, Optional
 from bson.objectid import ObjectId
@@ -37,10 +38,14 @@ class CreateUser(Resource):
         if targetcol in collist:
             mycol = database[targetcol]
             if mycol.find_one({"email"     : data['email']}): # 檢查是否有重複的 email
-                return {'msg': 1}, 409
+                response = make_response(jsonify({'msg': 1}))
+                response.status_code = 409
+                return response
             else:
                 mycol.insert_one(mydict)
-                return {'msg': 0}, 201
+                response = make_response(jsonify({'msg': 0}))
+                response.status_code = 201
+                return response
         else:
             return "Collection not found", 404
         

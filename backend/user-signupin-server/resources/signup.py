@@ -11,10 +11,6 @@ class CreateUser(Resource):
     parser.add_argument('email', required=True, help='Email is required')
     parser.add_argument('password', required=True, help='Password is required')
 
-    def __init__(self, databasepath) -> None:
-        super().__init__()
-        self.databasepath = databasepath
-
     def post(self): # 這邊是測試用的，之後要改成 post
 
         data = CreateUser.parser.parse_args()
@@ -28,8 +24,8 @@ class CreateUser(Resource):
             "password"  : data['password']
         }
 
-        # print(os.environ.get("ATLAS_URI"))
-        myclient = MongoClient(self.databasepath)
+        print(os.environ.get("ATLAS_URI"))
+        myclient = MongoClient(os.environ.get("ATLAS_URI"))
         # myclient = MongoClient(ATLAS_URI)
         dblist = myclient.list_database_names()
 

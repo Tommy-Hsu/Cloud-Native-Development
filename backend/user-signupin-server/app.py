@@ -10,7 +10,7 @@ server = Flask(__name__)
 # Api object:
 api = Api(server)
 
-api.add_resource(CreateUser, "/signup", resource_class_kwargs={'databasepath': os.environ.get("ATLAS_URI")})
+api.add_resource(CreateUser, "/signup")
 api.add_resource(SigninUser, "/signin")
 
 if __name__ == "__main__":

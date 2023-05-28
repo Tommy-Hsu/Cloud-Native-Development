@@ -38,14 +38,15 @@ services:
     ports:
       - 8080:5000
   
-  user-sign-up-server:
+  user-signupin-server:
     build: 
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
-    # image: user-sign-up-server:latest
+    environment:
+      - ATLAS_URI=${ATLAS_URI}
     ports:
       - 8081:5000
-    container_name: user-sign-up-server
+    container_name: user-signupin-server
     networks:
       - cilltan
 

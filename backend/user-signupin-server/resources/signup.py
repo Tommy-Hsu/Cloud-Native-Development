@@ -24,7 +24,6 @@ class CreateUser(Resource):
             "password"  : data['password']
         }
 
-        print(os.environ.get("ATLAS_URI"))
         myclient = MongoClient(os.environ.get("ATLAS_URI"))
         # myclient = MongoClient(ATLAS_URI)
         dblist = myclient.list_database_names()

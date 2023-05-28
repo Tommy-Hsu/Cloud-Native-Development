@@ -27,8 +27,6 @@ jobs:
       - name: Run tests 
         run: |
           # Run your tests against the running Docker Compose services
-          cd backend
-          cd user-signupin-server
           python3 -m unittest test.py -b -v
 
       - name: Clean up

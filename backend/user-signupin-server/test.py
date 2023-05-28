@@ -28,7 +28,7 @@ class MyResourceTestCase(unittest.TestCase):
     
     def tearDown(self) -> None:
         # myclient = MongoClient(os.environ.get("ATLAS_URI"))
-        print(os.environ.get("ATLAS_URI"))
+        # print(os.environ.get("ATLAS_URI"))
         # print(myclient.list_database_names())
         # database = myclient["test"]
         # print(database.list_collection_names())
@@ -37,4 +37,5 @@ class MyResourceTestCase(unittest.TestCase):
         return super().tearDown()
 
 if __name__ == '__main__':
+    print(os.environ.get("ATLAS_URI"))
     unittest.main()

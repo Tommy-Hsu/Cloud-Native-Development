@@ -7,7 +7,7 @@ COPY . .
 ENV FLASK_APP=app.py FLASK_RUN_HOST=0.0.0.0
 
 RUN pip3 install -r requirements.txt
-RUN echo ${ATLAS_URI}
+RUN echo $ATLAS_URI
 
 EXPOSE 5000
 

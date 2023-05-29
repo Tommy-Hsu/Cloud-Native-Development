@@ -25,6 +25,10 @@ class CreateUser(Resource):
         }
 
         myclient = MongoClient(os.environ.get("ATLAS_URI"))
+        if not myclient:
+            response = make_response(jsonify({'mg not connect': os.environ.get("ATLAS_URI")}))
+            response.status_code = 404
+            return response
         # myclient = MongoClient(ATLAS_URI)
         dblist = myclient.list_database_names()
 

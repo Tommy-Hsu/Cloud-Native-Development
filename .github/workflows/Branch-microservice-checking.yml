@@ -2,32 +2,44 @@ name: Branch-microservice-checking
 on:
   push:
     branches:
-      - 'user-signupin'
-env:
-  ATLAS_URI : ${{ secrets.ATLASURI  }}
+      - user-signupin
 jobs:
   Check_Docker_compose:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/user-signupin'
+    env:
+      ATLAS_URI: ${{ secrets.ATLAS_URI }}
     steps:
+      - if: ${{ env.ATLAS_URI != '' }}
+        run: echo 'This step will only run if the secret has a value set.'
+      - if: ${{ env.ATLAS_URI == '' }}
+        run: echo 'This step will only run if the secret does not have a value set.'
+          
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: user-signupin
-        
-      - name: Build and run Docker Compose
-        run: |
-          docker-compose up -d
           
       - name: Set up environments
         run: |
           python3 -m pip install --upgrade pip
           if [ -e requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run tests 
+          
+      - name: pass env
         run: |
+          echo ATLAS_URI = ${{ env.ATLAS_URI }} > .env
+          ls -al
+          cat .env
+        
+      - name: Build and run Docker Compose
+        run: |
+          docker-compose up -d
+          docker-compose ps
+          
+      - name: Run tests
+        run: |
+          docker exec user-signupin-server printenv ATLAS_URI
           # Run your tests against the running Docker Compose services
           # python3 -m unittest test.py -b -v
-          curl -X POST -H "Content-Type: application/json" -d '{"email": "value12", "password": "value2"}' http://localhost:7777/signup
-
+          curl -X POST -H "Content-Type: application/json" -d '{"email": "value12", "password": "value2"}' http://127.0.0.1:7777/signup
       - name: Clean up
         run: docker-compose down

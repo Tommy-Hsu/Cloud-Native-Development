@@ -20,7 +20,7 @@ services:
       context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
     ports:
-      - 7000:5000
+      - 8888:5000
     container_name: db-endpoints-server
     networks:
       - cilltan

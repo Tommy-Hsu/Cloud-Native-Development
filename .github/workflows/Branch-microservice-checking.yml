@@ -32,15 +32,16 @@ jobs:
         
       - name: Build and run Docker Compose
         run: |
-          docker-compose up -d
-          docker-compose ps
+          # docker-compose up -d
+          # docker-compose ps
           
       - name: Run tests
         run: |
-          docker exec user-signupin-server printenv ATLAS_URI
+          # docker exec user-signupin-server printenv ATLAS_URI
           # Run your tests against the running Docker Compose services
           nohup python3 fortest.py &
           python3 -m unittest test.py -b -v
           # curl -X POST -H "Content-Type: application/json" -d '{"email": "value12", "password": "value2"}' http://127.0.0.1:7777/signup
       - name: Clean up
-        run: docker-compose down
+        run: |
+          # docker-compose down

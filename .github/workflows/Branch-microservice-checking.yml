@@ -37,7 +37,7 @@ jobs:
           
       - name: Run tests
         run: |
-          sudo apt-get install -y mongodb-clients
+          apt-get install -y mongodb-clients
           mongo "mongodb+srv://michaellee:myatlas2023@cluster0.vmsth6v.mongodb.net/?retryWrites=true&w=majority" --eval "printjson(db.version())"
           # docker exec user-signupin-server printenv ATLAS_URI
           # Run your tests against the running Docker Compose services

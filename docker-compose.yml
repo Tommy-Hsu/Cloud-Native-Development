@@ -13,6 +13,7 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
+      - mongo
   
   db-endpoints-server:
     build:
@@ -36,6 +37,31 @@ services:
       - cilltan
     ports:
       - 8080:5000
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    env_file:
+      - mongo-variables.env
+    ports:
+      - 27017:27017
+    networks:
+      - cilltan
+    volumes:
+      - ./mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    env_file:
+      - mongo-express-variables.env
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    networks:
+      - cilltan
 
 networks:
   cilltan:

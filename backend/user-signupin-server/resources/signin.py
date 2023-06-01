@@ -22,7 +22,7 @@ class SigninUser(Resource):
             "password"  : data['password']
         }
 
-        myclient = MongoClient(os.environ.get("ATLAS_URI"))
+        myclient = MongoClient(os.environ.get("MONGODB_URL"))
         dblist = myclient.list_database_names()
 
         if targetdb in dblist:

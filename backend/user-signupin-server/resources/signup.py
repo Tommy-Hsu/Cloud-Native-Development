@@ -24,9 +24,9 @@ class CreateUser(Resource):
             "password"  : data['password']
         }
 
-        myclient = MongoClient(os.environ.get("ATLAS_URI"))
+        myclient = MongoClient(os.environ.get("MONGODB_URL"))
         if not myclient:
-            response = make_response(jsonify({'mg not connect': os.environ.get("ATLAS_URI")}))
+            response = make_response(jsonify({'mg not connect': os.environ.get("MONGODB_URL")}))
             response.status_code = 404
             return response
         # myclient = MongoClient(ATLAS_URI)

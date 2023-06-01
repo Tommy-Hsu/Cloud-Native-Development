@@ -8,8 +8,8 @@ COPY package.json .
 RUN npm i
 
 # Copies the source code into "/server"
-COPY ../dp-endpoints-erver/models ./models
-COPY ../dp-endpoints-erver/routes ./routes
+COPY ../dp-endpoints-server/models ./models
+COPY ../dp-endpoints-server/routes ./routes
 COPY .env .
 COPY app.js .
 

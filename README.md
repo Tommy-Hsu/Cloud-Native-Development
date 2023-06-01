@@ -19,6 +19,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 $ docker container rm --force $(docker container ls --all --quiet)
 ```
 
+Run the following command to check status of MongoDB Replica-Set.
+```
+$ docker exec -it mongo1 mongosh --eval "rs.status()"
+```
+
 
 ## Available Scripts
 In the project directory, you can run:

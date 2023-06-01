@@ -14,6 +14,7 @@ export default class CreateActivity extends Component {
         this.onChangeMinMember = this.onChangeMinMember.bind(this);
         this.onChangeCurrentMember = this.onChangeCurrentMember.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangeImage = this.onChangeImage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -24,7 +25,7 @@ export default class CreateActivity extends Component {
             minMember: 0,
             currentMember: 0,
             date: new Date(),
-            users: []
+            image: '',
         }
     }
 
@@ -81,7 +82,13 @@ export default class CreateActivity extends Component {
         this.setState({
             date: date
         });
-    }    
+    }
+    
+    onChangeImage(event) {
+        this.setState({
+            image: event.target.value
+        });
+    }
 
     onSubmit(event) {
         event.preventDefault();
@@ -93,7 +100,8 @@ export default class CreateActivity extends Component {
             price: this.state.price,
             minMember: this.state.minMember,
             currentMember: this.state.currentMember,
-            date: this.state.date
+            date: this.state.date,
+            image: this.state.image
         }
 
         console.log(activity);
@@ -109,7 +117,7 @@ export default class CreateActivity extends Component {
         return (
             <div>
                 <h3>Create New Activity </h3>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} encType="multipart/form-data">
                     <div className="form-group">
                         <label>活動類型: </label>
                         <select ref="userInput"
@@ -173,6 +181,14 @@ export default class CreateActivity extends Component {
                         </div>
                     </div>
                     <br />
+                    <div className='form-group'>
+                        <input 
+                            type="file" 
+                            name="item_image"
+                            value={this.state.image}
+                            onChange={this.onChangeImage}
+                        />
+                    </div>
                     <div className="form-group">
                         <input type="submit" value="建立活動" className="btn btn-primary" />
                     </div>

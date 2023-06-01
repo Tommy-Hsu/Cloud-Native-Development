@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # MongoDB
-.env
-mongo-data/
+backend/mongo/*.env
+backend/mongo/data/

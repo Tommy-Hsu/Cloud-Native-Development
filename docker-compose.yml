@@ -13,7 +13,8 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
-      - mongo_one
+      - mongo
+      - user-signupin-server
   
   db-endpoints-server:
     build:
@@ -33,6 +34,8 @@ services:
       dockerfile: Dockerfile
     image: create-join-group-server:latest
     container_name: create-join-group-server
+    # environment:
+    #   - ATLAS_URI=${ATLAS_URI}
     env_file:
       - ./backend/create-join-group-server/.env
     networks:
@@ -97,6 +100,18 @@ services:
       - 8081:8081
     networks:
       - cilltan
+
+  user-signupin-server:
+    build: 
+      context: ./backend/user-signupin-server
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/user-signupin-server/.env
+    # environment:
+    #   - ATLAS_URI=${ATLAS_URI}
+    ports:
+      - 7777:5000
+    container_name: user-signupin-server
 
 networks:
   cilltan:

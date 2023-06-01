@@ -34,8 +34,10 @@ services:
       dockerfile: Dockerfile
     image: create-join-group-server:latest
     container_name: create-join-group-server
-    environment:
-      - ATLAS_URI=${ATLAS_URI}
+    # environment:
+    #   - ATLAS_URI=${ATLAS_URI}
+    env_file:
+      - ./backend/create-join-group-server/.env
     networks:
       - cilltan
     ports:
@@ -70,8 +72,10 @@ services:
     build: 
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
-    environment:
-      - ATLAS_URI=${ATLAS_URI}
+    env_file:
+      - ./backend/user-signupin-server/.env
+    # environment:
+    #   - ATLAS_URI=${ATLAS_URI}
     ports:
       - 7777:5000
     container_name: user-signupin-server

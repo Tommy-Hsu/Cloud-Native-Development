@@ -1,3 +1,5 @@
+[![Docker-Compose and Dockerfile Check](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml/badge.svg)](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml)
+
 # Getting Started with ChillTan
 
 1. Clone this github repo.

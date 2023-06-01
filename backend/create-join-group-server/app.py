@@ -10,7 +10,7 @@ from utils import *
 
 
 # Mongo DB:
-client = MongoClient(os.environ.get("ATLAS_URI"))
+client = MongoClient(os.environ.get("MONGO_URI"))
 db = client.CillTan
 
 # Flask app:

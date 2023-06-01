@@ -13,6 +13,7 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
+      - mongo
       - user-signupin-server
   
   db-endpoints-server:
@@ -20,10 +21,12 @@ services:
       context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
     ports:
-      - 8888:5000
+      - 5000:5000
     container_name: db-endpoints-server
     networks:
       - cilltan
+    depends_on:
+      - mongo
 
   create-join-group-server:
     build:
@@ -37,7 +40,32 @@ services:
       - cilltan
     ports:
       - 8080:5000
-  
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    env_file:
+      - ./backend/mongo/mongo-variables.env
+    ports:
+      - 27017:27017
+    networks:
+      - cilltan
+    volumes:
+      - ./backend/mongo/mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    env_file:
+      - ./backend/mongo/mongo-express-variables.env
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    networks:
+      - cilltan
+
   user-signupin-server:
     build: 
       context: ./backend/user-signupin-server
@@ -47,8 +75,6 @@ services:
     ports:
       - 7777:5000
     container_name: user-signupin-server
-    networks:
-      - cilltan
 
 networks:
   cilltan:

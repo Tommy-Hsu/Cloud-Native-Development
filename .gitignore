@@ -28,9 +28,9 @@ backend/mongo/data/
 
 # Create-Join-Group-Server
 /backend/create-join-group-server/.env
-/**/*.env
+# /**/*.env
 
 # python
 __pycache__/
-.env
+# .env
 mongo-data/

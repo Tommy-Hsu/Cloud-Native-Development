@@ -14,4 +14,4 @@ api.add_resource(CreateUser, "/signup")
 api.add_resource(SigninUser, "/signin")
 
 if __name__ == "__main__":
-  server.run()
+  server.run(port=5000, debug=True)

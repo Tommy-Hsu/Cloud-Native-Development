@@ -13,7 +13,7 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
-      - mongo
+      - mongo_creater
       - user-signupin-server
   
   db-endpoints-server:
@@ -105,8 +105,8 @@ services:
     build: 
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
-    env_file:
-      - ./backend/user-signupin-server/.env
+    # env_file:
+    #   - ./backend/user-signupin-server/.env
     # environment:
     #   - ATLAS_URI=${ATLAS_URI}
     ports:

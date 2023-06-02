@@ -27,4 +27,4 @@ backend/mongo/*.env
 backend/mongo/data/
 
 # Create-Join-Group-Server
-/backend/create-join-group-server/.env
+# /backend/create-join-group-server/.env

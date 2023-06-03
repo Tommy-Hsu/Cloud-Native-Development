@@ -33,7 +33,6 @@ router.route('/add').post(upload.single("item_image"), (req, res) => {
     const minMember = Number(req.body.minMember);
     const currentMember = 0;
     const date = Date.parse(req.body.date);
-    const image = req.body.image;
 
     const newActivity = new Activity({
         activityType,
@@ -43,7 +42,6 @@ router.route('/add').post(upload.single("item_image"), (req, res) => {
         minMember,
         currentMember,
         date,
-        image,
     });
 
     newActivity.save()

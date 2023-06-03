@@ -23,4 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # MongoDB
-.env
+backend/mongo/*.env
+backend/mongo/data/
+
+# Create-Join-Group-Server
+# /backend/create-join-group-server/.env

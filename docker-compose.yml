@@ -13,6 +13,7 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
+      # - mongo_one
   
   db-endpoints-server:
     build:
@@ -23,6 +24,8 @@ services:
     container_name: db-endpoints-server
     networks:
       - cilltan
+    # depends_on:
+    #   - mongo_one
 
   create-join-group-server:
     build:
@@ -30,8 +33,8 @@ services:
       dockerfile: Dockerfile
     image: create-join-group-server:latest
     container_name: create-join-group-server
-    environment:
-      - ATLAS_URI=${ATLAS_URI}
+    env_file:
+      - ./backend/create-join-group-server/.env
     networks:
       - cilltan
     ports:
@@ -51,3 +54,65 @@ services:
 networks:
   cilltan:
     driver: bridge
+
+  # mongo_one:
+  #   image: mongo
+  #   container_name: mongodb
+  #   ports:
+  #     - 27017:27017
+  #   networks:
+  #     - cilltan
+  #   restart: always
+    # env_file:
+    #   - ./backend/mongo/mongo-variables.env
+    # command: mongod --replSet mongo-set      
+    # volumes:
+    #   - ./backend/mongo/data/mongo-1:/data/db
+
+  # mongo_two:
+  #   image: mongo
+  #   container_name: mongo2
+  #   ports:
+  #     - 30002:27017
+  #   networks:
+  #     - cilltan
+  #   restart: always
+  #   command: mongod --replSet mongo-set
+  #   volumes:
+  #     - ./backend/mongo/data/mongo-2:/data/db
+
+  # mongo_three:
+  #   image: mongo
+  #   container_name: mongo3
+  #   ports:
+  #     - 30003:27017
+  #   networks:
+  #     - cilltan
+  #   restart: always
+  #   command: mongod --replSet mongo-set
+  #   volumes:
+  #     - ./backend/mongo/data/mongo-3:/data/db
+
+  # mongo_creater:
+  #   image: mongo
+  #   container_name: mongo_creater
+  #   entrypoint: ["mongosh","--host","mongo1","--port","27017","--eval", 'rs.initiate( { _id : "mongo-set",members: [{ _id: 0, host: "mongo1:27017" },{ _id: 1, host: "mongo2:27017" },{ _id: 2, host: "mongo3:27017" }   ]})']
+  #   depends_on:
+  #     - mongo_one
+  #     - mongo_two
+  #     - mongo_three
+
+  # mongo-express:
+  #   image: mongo-express
+  #   container_name: mongo-express
+  #   # env_file:
+  #   #   - ./backend/mongo/mongo-express-variables.env
+  #   environment:
+  #     - ME_CONFIG_MONGODB_URL=mongodb://mongodb:27017/
+  #   restart: always
+  #   depends_on:
+  #     - mongo_one
+  #   ports:
+  #     - 8081:8081
+  #   networks:
+  #     - cilltan

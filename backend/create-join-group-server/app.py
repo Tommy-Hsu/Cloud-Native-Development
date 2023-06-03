@@ -10,7 +10,7 @@ from utils import *
 
 
 # Mongo DB:
-client = MongoClient(os.environ.get("ATLAS_URI"))
+client = MongoClient(os.environ.get("MONGO_URI"))
 db = client.CillTan
 
 # Flask app:
@@ -58,8 +58,9 @@ class CreateGroup(Resource):
         if not (uid := GetUserIDBySession(data["session"])):
             return {"msg": 2}, 404
 
-        data["attends"] = []
+        data.pop("session")
         data["leader"] = uid
+        data["attends"] = []
         db.groups.insert_one(data)
         return self.__MakeResponseGroupInfo(data), 201
 

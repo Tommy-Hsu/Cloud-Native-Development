@@ -1,11 +1,43 @@
 const router = require('express').Router();
+const prom = require("prom-client");
+const os = require("os");
 let Activity = require('../models/activity.model');
+var ipAddresses = new Array();
+
+
+const accessCounter = new prom.Counter({
+    name: 'access_activity_log_total',
+    help: 'Access Activity Log - total Access Activity requests'
+});
+  
+const clientIpGauge = new prom.Gauge({
+    name: 'access_client_ip_current',
+    help: 'Access Activity Log - current unique IP addresses'
+});
+  
+  //setup Prometheus with hostname label:
+  const defaultLabels = { hostname: os.hostname() };
+  prom.register.setDefaultLabels(defaultLabels);
+  prom.collectDefaultMetrics();
+
 
 // get all the activity in database
 router.route('/').get((req, res) => {
+    //metrics:
+    accessCounter.inc();
+    ipAddresses.push(req.body.clientIp);
+    let uniqueIps = Array.from(new Set(ipAddresses));
+    clientIpGauge.set(uniqueIps.length);
+
     Activity.find()
     .then(activity => res.json(activity))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/metrics').get(async (req, res) => {
+    res.set('Content-Type', prom.register.contentType);
+    let metrics = await prom.register.metrics();
+    res.send(metrics);
 });
 
 // add new exercise into database

@@ -51,6 +51,29 @@ services:
     ports:
       - 5001:5000
 
+  prometheus:
+    build:
+      context: backend/monitor/prometheus
+      dockerfile: Dockerfile
+    image: prometheus:latest
+    container_name: prometheus
+    networks:
+      - cilltan
+    ports:
+      - 9090:9090
+
+  grafana:
+    build:
+      context: backend/monitor/grafana
+      dockerfile: Dockerfile
+    image: grafana:latest
+    depends_on:
+      - prometheus
+    networks:
+      - cilltan
+    ports:
+      - "3030:3000"
+
 networks:
   cilltan:
     driver: bridge

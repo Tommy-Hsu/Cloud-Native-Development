@@ -1,21 +1,5 @@
 const router = require('express').Router();
 let Activity = require('../models/activity.model');
-const multer  = require('multer')
-
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'item-images')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-})
-  
-const upload = multer({
-    storage: storage
-})
 
 // get all the activity in database
 router.route('/').get((req, res) => {
@@ -25,7 +9,7 @@ router.route('/').get((req, res) => {
 });
 
 // add new exercise into database
-router.route('/add').post(upload.single("item_image"), (req, res) => {
+router.route('/add').post((req, res) => {
     const activityType = req.body.activityType;
     const name = req.body.name;
     const description = req.body.description;

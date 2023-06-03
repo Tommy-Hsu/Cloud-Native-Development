@@ -8,10 +8,10 @@ TWO_DAY_DELTA = timedelta(days=2)
 def GetLeftTime(endDate: datetime):
     endDate = datetime.strptime(endDate, "%Y %m %d")
     leftTime = endDate - datetime.now()
-    if leftTime < TWO_DAY_DELTA:
-        template = "%d day, %H:%M:%S"
-    elif leftTime < ONE_DAT_DELTA:
+    if leftTime < ONE_DAT_DELTA:
         template = "%H:%M:%S"
+    elif leftTime < TWO_DAY_DELTA:
+        template = "%d day, %H:%M:%S"
     else:
         template = "%d days, %H:%M:%S"
 

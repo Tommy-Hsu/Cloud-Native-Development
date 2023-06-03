@@ -16,5 +16,3 @@ def GetLeftTime(endDate: datetime):
         template = "%d days, %H:%M:%S"
 
     return datetime.strftime(datetime.strptime(str(leftTime).split('.')[0], template), "%Y %m %d %H %M %S")
-
-

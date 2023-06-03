@@ -5,14 +5,14 @@ ONE_DAT_DELTA = timedelta(days=1)
 TWO_DAY_DELTA = timedelta(days=2)
 
 
-def GetLeftTime(endDate: datetime):
+def GetLeftTime(endDate: str):
     endDate = datetime.strptime(endDate, "%Y %m %d")
     leftTime = endDate - datetime.now()
+    print(leftTime)
     if leftTime < ONE_DAT_DELTA:
-        template = "%H:%M:%S"
-    elif leftTime < TWO_DAY_DELTA:
-        template = "%d day, %H:%M:%S"
+        days, times = "0", str(leftTime).split('.')[0]
     else:
-        template = "%d days, %H:%M:%S"
+        days, times = str(leftTime).split(', ')
+        days, times = days.replace(" day", ""), str(times).split('.')[0]
 
-    return datetime.strftime(datetime.strptime(str(leftTime).split('.')[0], template), "%Y %m %d %H %M %S")
+    return (days + " " + " ".join(times.split(':'))).replace("s", "")

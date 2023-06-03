@@ -39,6 +39,17 @@ services:
       - cilltan
     ports:
       - 8080:5000
+  
+  event-search:
+    build:
+      context: backend/event-search
+      dockerfile: Dockerfile
+    image: event-search:latest
+    container_name: event-search
+    networks:
+      - cilltan
+    ports:
+      - 5001:5000
 
 networks:
   cilltan:

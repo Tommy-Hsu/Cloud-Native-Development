@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Activity = require('../../db-endpoints-server/models/activity.model');
+let Activity = require('../models/activity.model');
 
 router.route('/all-events').get((req, res) => {
     Activity.find()

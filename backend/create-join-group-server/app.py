@@ -118,6 +118,11 @@ class JoinGroupPage(Resource):
             return {"msg": 1}, 404
 
 
+@app.route("/")
+def Hello():
+    return "Flask alive !"
+
+
 api.add_resource(CreateGroup  , "/create")
 api.add_resource(JoinGroup    , "/join")
 api.add_resource(JoinGroupPage, "/join_page")

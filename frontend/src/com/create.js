@@ -2,30 +2,58 @@ import React, { useState } from 'react';
 import { Form, Input, Select, DatePicker, Button, InputNumber, Upload, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import axios from 'axios';
 
 const { Option } = Select;
 const { Dragger } = Upload;
 
 const categories = ['商品', '揪團活動'];
 const initialValues = {
-  name: '',
-  category: '',
-  type: '',
-  price: '',
-  groupPrice: '',
-  minRequiredPeople: null,
-  maxRequiredPeople: null,
-  dateRange: null,
-  description: '',
-  image: null,
+  session: '',
+  type: undefined,
+  category: undefined,
+  title: '',
+  descript: '',
+  price: undefined,
+  end_date: '',
+  least: undefined,
 };
 
 const MyForm = () => {
+  const [form] = Form.useForm();
   const [formType, setFormType] = useState('default');
 
-  const onFinish = (values) => {
-    console.log('Form values:', values);
-    // 在这里可以进行表单提交的逻辑处理
+  const onFinish = async (values) => {
+    const type = parseInt(values.type, 10);
+    const category = parseInt(values.category, 10);
+    const price = parseInt(values.price, 10);
+    const least = parseInt(values.least, 10);
+
+    console.log('Form values:', {
+      ...values,
+      type,
+      category,
+      price,
+      least,
+    });
+
+    try {
+      // 执行POST请求
+      const response = await axios.post('http://172.27.0.2:5000/create', {
+        ...values,
+        type,
+        category,
+        price,
+        least,
+      });
+
+      console.log('POST请求成功', response.data);
+      // 在这里可以处理请求成功后的逻辑
+
+    } catch (error) {
+      console.error('POST请求失败', error);
+      // 在这里可以处理请求失败后的逻辑
+    }
   };
 
   const handleCategoryChange = (value) => {
@@ -63,6 +91,7 @@ const MyForm = () => {
 
   return (
     <Form
+      form={form}
       name="myForm"
       initialValues={initialValues}
       onFinish={onFinish}
@@ -71,7 +100,7 @@ const MyForm = () => {
     >
       <Form.Item
         label="名稱"
-        name="name"
+        name="title"
         rules={[{ required: true, message: '請輸入名稱' }]}
       >
         <Input />
@@ -99,8 +128,12 @@ const MyForm = () => {
             rules={[{ required: true, message: '請選擇類別' }]}
           >
             <Select placeholder="請選擇類別">
-              <Option value="選項1">選項1</Option>
-              <Option value="選項2">選項2</Option>
+              <Option value="0">遊戲</Option>
+              <Option value="1">戶外</Option>
+              <Option value="2">時尚</Option>
+              <Option value="3">教育</Option>
+              <Option value="4">家庭</Option>
+              <Option value="5">文創</Option>
             </Select>
           </Form.Item>
 
@@ -114,7 +147,7 @@ const MyForm = () => {
 
           <Form.Item
             label="所需人數"
-            name="requiredPeople"
+            name="least"
             rules={[{ required: true, message: '請輸入所需人數' }]}
           >
             <InputNumber min={0} />
@@ -128,8 +161,12 @@ const MyForm = () => {
             rules={[{ required: true, message: '請選擇類別' }]}
           >
             <Select placeholder="請選擇類別">
-              <Option value="選項1">選項1</Option>
-              <Option value="選項2">選項2</Option>
+              <Option value="0">遊戲</Option>
+              <Option value="1">戶外</Option>
+              <Option value="2">時尚</Option>
+              <Option value="3">教育</Option>
+              <Option value="4">家庭</Option>
+              <Option value="5">文創</Option>
             </Select>
           </Form.Item>
 
@@ -145,16 +182,8 @@ const MyForm = () => {
             <>
               <Form.Item
                 label="最低人數"
-                name="minRequiredPeople"
+                name="least"
                 rules={[{ required: true, message: '請輸入最低人數' }]}
-              >
-                <InputNumber min={0} />
-              </Form.Item>
-
-              <Form.Item
-                label="最多人數"
-                name="maxRequiredPeople"
-                rules={[{ required: true, message: '請輸入最多人數' }]}
               >
                 <InputNumber min={0} />
               </Form.Item>
@@ -165,40 +194,18 @@ const MyForm = () => {
 
       <Form.Item
         label="開始時間-結束時間"
-        name="dateRange"
+        name="end_date"
         rules={[{ required: true, message: '請選擇時間範圍' }]}
       >
-        <DatePicker.RangePicker
-          showTime
-          format="YYYY-MM-DD HH:mm:ss"
-          ranges={{
-            今天: [moment(), moment()],
-            本月: [moment().startOf('month'), moment().endOf('month')],
-          }}
-        />
+        <DatePicker.RangePicker showTime format="YYYY-MM-DD" />
       </Form.Item>
 
       <Form.Item
         label="簡要描述"
-        name="description"
+        name="descript"
         rules={[{ required: true, message: '請輸入簡要描述' }]}
       >
         <Input.TextArea rows={4} />
-      </Form.Item>
-
-      <Form.Item
-        label="圖片上傳"
-        name="image"
-        valuePropName="fileList"
-        getValueFromEvent={(e) => e && e.fileList}
-        rules={[{ required: true, message: '請上傳圖片' }]}
-      >
-        <Dragger {...imageUploaderProps}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">點擊或拖動文件到此區域進行上傳</p>
-        </Dragger>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 6, span: 12 }}>

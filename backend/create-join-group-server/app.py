@@ -44,6 +44,7 @@ class CreateGroup(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument("session" , type=str, required=True, help="user session required")
     parser.add_argument("type"    , type=int, required=True, help="group type required")
+    parser.add_argument("category", type=int, required=True, help="category required")
     parser.add_argument("title"   , type=str, required=True, help="group name required")
     parser.add_argument("descript", type=str, required=True, help="group descript required")
     parser.add_argument("price"   , type=int, required=True, help="price required")
@@ -101,8 +102,25 @@ class JoinGroup(Resource):
         db.groups.update_one({"_id": gid}, {"$push": {"attends": {"uid": uid, "number": number}}})
 
 
-api.add_resource(CreateGroup, "/create")
-api.add_resource(JoinGroup  , "/join")
+class JoinGroupPage(Resource):
+
+    parser = reqparse.RequestParser()
+    parser.add_argument("gid", type=str, required=True, help="ID of group required")
+
+    def get(self):
+        gid = JoinGroupPage.parser.parse_args()["gid"]
+        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1})
+        if groupData:
+            groupData.pop("_id")
+            groupData["msg"] = 0
+            return groupData, 200
+        else:
+            return {"msg": 1}, 404
+
+
+api.add_resource(CreateGroup  , "/create")
+api.add_resource(JoinGroup    , "/join")
+api.add_resource(JoinGroupPage, "/join_page")
 
 
 if __name__ == "__main__":

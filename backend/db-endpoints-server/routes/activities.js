@@ -1,31 +1,47 @@
 const router = require('express').Router();
+const prom = require("prom-client");
+const os = require("os");
 let Activity = require('../models/activity.model');
-const multer  = require('multer')
+var ipAddresses = new Array();
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'item-images')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-})
+const accessCounter = new prom.Counter({
+    name: 'access_activity_log_total',
+    help: 'Access Activity Log - total Access Activity requests'
+});
   
-const upload = multer({
-    storage: storage
-})
+const clientIpGauge = new prom.Gauge({
+    name: 'access_client_ip_current',
+    help: 'Access Activity Log - current unique IP addresses'
+});
+  
+  //setup Prometheus with hostname label:
+  const defaultLabels = { hostname: os.hostname() };
+  prom.register.setDefaultLabels(defaultLabels);
+  prom.collectDefaultMetrics();
+
 
 // get all the activity in database
 router.route('/').get((req, res) => {
+    //metrics:
+    accessCounter.inc();
+    ipAddresses.push(req.body.clientIp);
+    let uniqueIps = Array.from(new Set(ipAddresses));
+    clientIpGauge.set(uniqueIps.length);
+
     Activity.find()
     .then(activity => res.json(activity))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/metrics').get(async (req, res) => {
+    res.set('Content-Type', prom.register.contentType);
+    let metrics = await prom.register.metrics();
+    res.send(metrics);
+});
+
 // add new exercise into database
-router.route('/add').post(upload.single("item_image"), (req, res) => {
+router.route('/add').post((req, res) => {
     const activityType = req.body.activityType;
     const name = req.body.name;
     const description = req.body.description;
@@ -33,7 +49,6 @@ router.route('/add').post(upload.single("item_image"), (req, res) => {
     const minMember = Number(req.body.minMember);
     const currentMember = 0;
     const date = Date.parse(req.body.date);
-    const image = req.body.image;
 
     const newActivity = new Activity({
         activityType,
@@ -43,7 +58,6 @@ router.route('/add').post(upload.single("item_image"), (req, res) => {
         minMember,
         currentMember,
         date,
-        image,
     });
 
     newActivity.save()

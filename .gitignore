@@ -26,5 +26,9 @@ yarn-error.log*
 backend/mongo/*.env
 backend/mongo/data/
 
+# Prometheus & Grafana
+backend/monitor/prometheus/prometheus_data/
+# backend/monitor/grafana/grafana_data/
+
 # Create-Join-Group-Server
 # /backend/create-join-group-server/.env

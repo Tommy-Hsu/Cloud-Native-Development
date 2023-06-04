@@ -66,6 +66,15 @@ services:
     ports:
       - 9090:9090
 
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+    networks:
+      - cilltan
+    ports:
+      - 9100:9100
+
   grafana:
     build:
       context: backend/monitor/grafana
@@ -78,6 +87,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     depends_on:
       - prometheus
+      - node-exporter
     networks:
       - cilltan
     ports:

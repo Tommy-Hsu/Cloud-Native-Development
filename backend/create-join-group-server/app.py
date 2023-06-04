@@ -52,7 +52,7 @@ class CreateGroup(Resource):
     parser.add_argument("price"   , type=int, required=True, help="price required")
     parser.add_argument("end_date", type=str, required=True, help="end date required")
     parser.add_argument("least"   , type=int, required=True, help="least number of people required")
-    parser.add_argument("image"   , type=str, required=False, help="(base64) image of group required")
+    # parser.add_argument("image"   , type=str, required=False, help="(base64) image of group required")
 
     def post(self):
         data = CreateGroup.parser.parse_args()

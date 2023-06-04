@@ -23,7 +23,7 @@ api = Api(app)
 
 # Some methods:
 def GetUserIDBySession(session: str) -> ObjectId:
-    doc = db.session.find_one({"session": session}, {"uid": 1, "_id": 0})
+    doc = db.sessions.find_one({"session": session}, {"uid": 1, "_id": 0})
     if doc:
         return doc["uid"]
     

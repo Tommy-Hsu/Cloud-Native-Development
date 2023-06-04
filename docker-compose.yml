@@ -57,6 +57,10 @@ services:
       dockerfile: Dockerfile
     image: prometheus:latest
     container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      # - backend/monitor/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./backend/monitor/prometheus/prometheus_data:/prometheus
     networks:
       - cilltan
     ports:
@@ -67,6 +71,11 @@ services:
       context: backend/monitor/grafana
       dockerfile: Dockerfile
     image: grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
     depends_on:
       - prometheus
     networks:

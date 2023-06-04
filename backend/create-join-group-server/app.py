@@ -3,7 +3,7 @@ import time
 from loguru import logger
 
 from flask import Flask
-# from flask_cors import CORS
+from flask_cors import CORS
 from flask_restful import Api, Resource, reqparse
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -17,7 +17,7 @@ db = client.CillTan
 
 # Flask app:
 app = Flask(__name__)
-# CORS(app)
+CORS(app, supports_credentials=True)
 
 # Api object:
 api = Api(app)

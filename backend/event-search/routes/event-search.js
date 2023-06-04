@@ -17,16 +17,18 @@ router.route('/event-search').get((req, res) => {
     // currentMember: {type: Number, required: true},
     // date: {type: Date, required: true},
 
-    const activityType=req.query.activityType;
-    const name=req.query.name;
+    var activityType=req.query.activityType;
+    var category=req.query.category;
+    var name=req.query.name;
 
-    if (activityType == undefined) { activityType = "*"; }
-    if (name == undefined) { name = "*"; }
+    if (activityType == undefined) { activityType = ""; }
+    if (category == undefined) { category = ""; }
+    if (name == undefined) { name = ""; }
 
     console.log(activityType);
     console.log(name);
 
-    Activity.find({name: new RegExp('^'+name+'$', "i"), activityType: activityType})
+    Activity.find({name: {$regex: name, $options: 'i'}, activityType: {$regex: activityType}})
     .then(activities => res.json(activities))
     .catch(err => res.status(400).json('Error: ' + err));
 })

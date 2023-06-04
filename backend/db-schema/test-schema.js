@@ -32,17 +32,19 @@ function insertUser() {
 }
 
 function insertActivity() {
-    const activityType = "Test-activityType";
     const name = "Test-name";
+    const type = Number(0);
+    const category = Number(0);
     const description = "Test-description";
-    const price = Number(-1);
-    const minMember = Number(-1);
-    const currentMember = 0;
+    const price = Number(0);
+    const minMember = Number(0);
+    const currentMember = Number(0);
     const date = Date();
 
     const newActivity = new Activity({
-        activityType,
         name,
+        type,
+        category,
         description,
         price,
         minMember,
@@ -72,20 +74,22 @@ function insertSession() {
 function insertGroup() {
     const title = "Test-Group-title";
     const leader = new mongoose.mongo.ObjectId();
-    const type = Number(-1);
+    const type = Number(0);
+    const category = Number(0);
     const descript = "Test-Group-descript";
-    const price = Number(-1);
-    const end_date = "Test-Group-end_date";
-    const least = Number(-1);
+    const price = Number(0);
+    const end_date = "[Year][Month][Day]";
+    const least = Number(0);
     const attends = {
         "uid": new mongoose.mongo.ObjectId(),
-        "number": Number(-1),
+        "number": Number(0),
     };
 
     const newGroup = new Group({
         title,
         leader,
         type,
+        category,
         descript,
         price,
         end_date,

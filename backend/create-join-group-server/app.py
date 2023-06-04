@@ -50,6 +50,7 @@ class CreateGroup(Resource):
     parser.add_argument("price"   , type=int, required=True, help="price required")
     parser.add_argument("end_date", type=str, required=True, help="end date required")
     parser.add_argument("least"   , type=int, required=True, help="least number of people required")
+    parser.add_argument("image"   , type=str, required=True, help="(base64) image of group required")
 
     def post(self):
         data = CreateGroup.parser.parse_args()
@@ -63,21 +64,10 @@ class CreateGroup(Resource):
         data["leader"] = uid
         data["attends"] = []
         db.groups.insert_one(data)
-        return self.__MakeResponseGroupInfo(data), 201
+        return {"msg": 0}, 201
 
     def __IsTitleExist(self, title: str):
         return db.groups.count_documents({"title": title}) > 0
-    
-    def __MakeResponseGroupInfo(self, data: dict):
-        return {
-            "msg"      : 0,
-            "title"    : data["title"],
-            "price"    : data["price"],
-            "attend"   : 0,
-            "least"    : data["least"],
-            "time_left": GetLeftTime(data["end_date"]),
-            "descript" : data["descript"]
-        }
     
 
 class JoinGroup(Resource):
@@ -109,7 +99,7 @@ class JoinGroupPage(Resource):
 
     def get(self):
         gid = JoinGroupPage.parser.parse_args()["gid"]
-        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1})
+        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1, "image": 1})
         if groupData:
             groupData.pop("_id")
             groupData["msg"] = 0

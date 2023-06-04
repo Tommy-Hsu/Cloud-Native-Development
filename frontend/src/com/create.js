@@ -39,7 +39,7 @@ const MyForm = () => {
 
     try {
       // 执行POST请求
-      const response = await axios.post('http://172.27.0.2:5000/create', {
+      const response = await axios.post('http://localhost:8080/create', {
         ...values,
         type,
         category,

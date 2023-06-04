@@ -40,6 +40,16 @@ services:
     ports:
       - 8080:5000
   
+  user-signupin-server:
+    build: 
+      context: ./backend/user-signupin-server
+      dockerfile: Dockerfile
+    ports:
+      - 7777:5000
+    container_name: user-signupin-server
+    networks:
+      - cilltan
+  
   event-search:
     build:
       context: backend/event-search

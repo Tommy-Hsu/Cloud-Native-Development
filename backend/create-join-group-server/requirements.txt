@@ -14,3 +14,4 @@ python-dotenv==1.0.0
 pytz==2023.3
 six==1.16.0
 Werkzeug==2.3.4
+loguru==0.7.0

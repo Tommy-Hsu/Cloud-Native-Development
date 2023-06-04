@@ -1,4 +1,6 @@
 import os
+import time
+from loguru import logger
 
 from flask import Flask
 from flask_cors import CORS
@@ -55,15 +57,18 @@ class CreateGroup(Resource):
     def post(self):
         data = CreateGroup.parser.parse_args()
         if self.__IsTitleExist(data["title"]):
+            logger.warning(f"[CreateGroup](POST) Title conflict. (title = {data['title']})")
             return {"msg": 1}, 406
 
         if not (uid := GetUserIDBySession(data["session"])):
+            logger.warning(f"[CreateGroup](POST) User session not found. (session = {data['session']})")
             return {"msg": 2}, 404
 
         data.pop("session")
         data["leader"] = uid
         data["attends"] = []
         db.groups.insert_one(data)
+        logger.info(f"[CreateGroup](POST) Successfully inserted group data. (title = {data['title']})")
         return {"msg": 0}, 201
 
     def __IsTitleExist(self, title: str):
@@ -79,13 +84,16 @@ class JoinGroup(Resource):
 
     def post(self):
         data = JoinGroup.parser.parse_args()
-        if (uid := GetUserIDBySession(data["session"])) is not None:
+        if (uid := GetUserIDBySession(data["session"])) is None:
             if (gid := CheckAndGetGroupID(data["gid"])):
                 self.__PushGroup(gid, uid, data["number"])
+                logger.info(f"[JoinGroup](POST) Successfully join group. (gid = {gid}, uid = {uid}, number = {data['number']})")
                 return {"msg": 0}, 201
             
+            logger.warning(f"[JoinGroup](POST) Group ID not found. (gid = {data['gid']})")
             return {"msg": 1}, 404
         
+        logger.warning(f"[JoinGroup](POST) User session not found. (session = {data['session']})")
         return {"msg": 2}, 404
 
     def __PushGroup(self, gid: ObjectId, uid: ObjectId, number: int):
@@ -103,8 +111,10 @@ class JoinGroupPage(Resource):
         if groupData:
             groupData.pop("_id")
             groupData["msg"] = 0
+            logger.info("[JoinGroupPage](GET) Successfully access group data.")
             return groupData, 200
         else:
+            logger.warning("[JoinGroupPage](GET) Cannot access group data.")
             return {"msg": 1}, 404
 
 

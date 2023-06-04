@@ -9,26 +9,26 @@ router.route('/all-events').get((req, res) => {
 
 router.route('/event-search').get((req, res) => {
     // Schema
-    // activityType: {type: String, required: true},
-    // name: {type: String, required: true},
+    // type: {type: String, required: true},
+    // title: {type: String, required: true},
     // description: {type: String, required: true},
     // price: {type: Number, required: true},
     // minMember: {type: Number, required: true},
     // currentMember: {type: Number, required: true},
     // date: {type: Date, required: true},
 
-    var activityType=req.query.activityType;
+    var type=req.query.type;
     var category=req.query.category;
-    var name=req.query.name;
+    var title=req.query.title;
 
-    if (activityType == undefined) { activityType = ""; }
+    if (type == undefined) { type = ""; }
     if (category == undefined) { category = ""; }
-    if (name == undefined) { name = ""; }
+    if (title == undefined) { title = ""; }
 
     console.log(activityType);
-    console.log(name);
+    console.log(title);
 
-    Activity.find({name: {$regex: name, $options: 'i'}, activityType: {$regex: activityType}})
+    Activity.find({title: {$regex: title, $options: 'i'}, type: {$regex: type}})
     .then(activities => res.json(activities))
     .catch(err => res.status(400).json('Error: ' + err));
 })

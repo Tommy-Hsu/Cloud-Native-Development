@@ -1,8 +1,8 @@
 const router = require('express').Router();
-let Activity = require('../models/activity.model');
+let Group = require('../models/groups.model');
 
 router.route('/all-events').get((req, res) => {
-    Activity.find()
+    Group.find()
     .then(activity => res.json(activity))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -25,11 +25,11 @@ router.route('/event-search').get((req, res) => {
     if (category == undefined) { category = ""; }
     if (title == undefined) { title = ""; }
 
-    console.log(activityType);
+    console.log(type);
     console.log(title);
 
-    Activity.find({title: {$regex: title, $options: 'i'}, type: {$regex: type}})
-    .then(activities => res.json(activities))
+    Group.find({title: {$regex: title, $options: 'i'}, type: {$regex: type}})
+    .then(groups => res.json(groups))
     .catch(err => res.status(400).json('Error: ' + err));
 })
 

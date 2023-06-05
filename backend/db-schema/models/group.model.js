@@ -15,6 +15,7 @@ const groupSchema = new Schema({
         uid: {type: ObjectId, required: true},
         number: {type: Number, required: true},
     },
+    image: {type: String, require: true},
 }, {
     timestamps: true,
 });

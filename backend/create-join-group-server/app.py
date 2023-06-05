@@ -111,6 +111,7 @@ class JoinGroupPage(Resource):
         if groupData:
             groupData["msg"] = 0
             groupData["time_left"] = GetLeftTime(groupData.pop("end_date"))
+            groupData.setdefault("image", None)
             logger.info("[JoinGroupPage](GET) Successfully access group data.")
             return groupData, 200
         else:

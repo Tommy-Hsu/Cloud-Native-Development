@@ -14,7 +14,7 @@ export default function Register() {
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     try{
-      const response = await axios.post('http://user-signupin-server:5000/signup', {
+      const response = await axios.post('http://localhost:7777/signup', {
         email: values.email,
         password: values.password,
     });

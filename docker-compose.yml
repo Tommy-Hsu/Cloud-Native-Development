@@ -5,25 +5,26 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: chilltan_frontend
     ports:
       - 3000:3000
     container_name: frontend
     networks:
-      - cilltan
+      - ChillTan
     depends_on:
       - db-endpoints-server
       - create-join-group-server
       # - mongo_one
   
-  db-endpoints-server:
-    build:
-      context: ./backend/db-endpoints-server
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-    container_name: db-endpoints-server
-    networks:
-      - cilltan
+  # db-endpoints-server:
+  #   build:
+  #     context: ./backend/db-endpoints-server
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5000:5000
+  #   container_name: db-endpoints-server
+  #   networks:
+  #     - ChillTan
     # depends_on:
     #   - mongo_one
 
@@ -32,23 +33,25 @@ services:
       context: ./backend/create-join-group-server
       dockerfile: Dockerfile
     image: create-join-group-server:latest
-    container_name: create-join-group-server
     env_file:
       - ./backend/create-join-group-server/.env
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - 8080:5000
+    deploy:
+      replicas: 2
   
   user-signupin-server:
     build: 
       context: ./backend/user-signupin-server
       dockerfile: Dockerfile
+    image: user-signupin-server:latest
     ports:
       - 7777:5000
     container_name: user-signupin-server
     networks:
-      - cilltan
+      - ChillTan
   
   event-search:
     build:
@@ -57,7 +60,7 @@ services:
     image: event-search:latest
     container_name: event-search
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - 5001:5000
 
@@ -72,7 +75,7 @@ services:
       # - backend/monitor/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./backend/monitor/prometheus/prometheus_data:/prometheus
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - 9090:9090
 
@@ -81,7 +84,7 @@ services:
     container_name: node-exporter
     restart: unless-stopped
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - 9100:9100
 
@@ -98,7 +101,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - 8081:8080
 
@@ -117,13 +120,14 @@ services:
       - node-exporter
       - cadvisor
     networks:
-      - cilltan
+      - ChillTan
     ports:
       - "3030:3000"
 
 networks:
-  cilltan:
-    driver: bridge
+  ChillTan:
+    name: ChillTanNet
+    driver: overlay
 
   # mongo_one:
   #   image: mongo
@@ -131,7 +135,7 @@ networks:
   #   ports:
   #     - 27017:27017
   #   networks:
-  #     - cilltan
+  #     - ChillTan
   #   restart: always
     # env_file:
     #   - ./backend/mongo/mongo-variables.env
@@ -145,7 +149,7 @@ networks:
   #   ports:
   #     - 30002:27017
   #   networks:
-  #     - cilltan
+  #     - ChillTan
   #   restart: always
   #   command: mongod --replSet mongo-set
   #   volumes:
@@ -157,7 +161,7 @@ networks:
   #   ports:
   #     - 30003:27017
   #   networks:
-  #     - cilltan
+  #     - ChillTan
   #   restart: always
   #   command: mongod --replSet mongo-set
   #   volumes:
@@ -185,4 +189,4 @@ networks:
   #   ports:
   #     - 8081:8081
   #   networks:
-  #     - cilltan
+  #     - ChillTan

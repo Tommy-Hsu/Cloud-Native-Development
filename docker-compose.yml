@@ -85,6 +85,23 @@ services:
     ports:
       - 9100:9100
 
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /etc/machine-id:/etc/machine-id:ro
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - cilltan
+    ports:
+      - 8081:8080
+
   grafana:
     build:
       context: backend/monitor/grafana
@@ -98,6 +115,7 @@ services:
     depends_on:
       - prometheus
       - node-exporter
+      - cadvisor
     networks:
       - cilltan
     ports:

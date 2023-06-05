@@ -107,10 +107,10 @@ class JoinGroupPage(Resource):
 
     def get(self):
         gid = JoinGroupPage.parser.parse_args()["gid"]
-        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1, "image": 1})
+        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attends": 1, "least": 1, "end_date": 1, "descript": 1, "image": 1})
         if groupData:
-            groupData.pop("_id")
             groupData["msg"] = 0
+            groupData["time_left"] = GetLeftTime(groupData.pop("end_date"))
             logger.info("[JoinGroupPage](GET) Successfully access group data.")
             return groupData, 200
         else:

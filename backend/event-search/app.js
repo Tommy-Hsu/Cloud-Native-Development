@@ -19,6 +19,8 @@ const eventSearch = require('./routes/event-search');
 
 app.use('/', eventSearch);
 
-app.listen(port,()=>{
+let appServer = app.listen(port,()=>{
     console.log(`server listen to http://localhost:${port}`)
 })
+
+modules.exports = appserver;

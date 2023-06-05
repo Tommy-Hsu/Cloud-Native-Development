@@ -12,15 +12,25 @@ const tailLayout = {
 };
 
 export default function Login() {
-  const onFinish = (values) => {
+  const onFinish =async (values) => {
     console.log('Received values of form: ', values);
     try{
-      const response = axios.post('http://user-signupin-server:5000/signin', {
+      const response = await axios.post('http://localhost:7777/signin', {
         email: values.username,
         password: values.password
     });
 
     console.log('Sign in successful', response.data);
+    
+    if (response.data) {
+      const uid = response.data.session;
+      const msg = response.data.msg;
+      
+      console.log('Received uid: ', uid);
+      console.log('Received msg: ', msg);
+    } else {
+      console.error('Sign in failed: No data received from backend');
+    }
   } catch (error) {
     console.error('Sign in failed', error);
   }

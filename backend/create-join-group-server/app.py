@@ -84,7 +84,7 @@ class JoinGroup(Resource):
 
     def post(self):
         data = JoinGroup.parser.parse_args()
-        if (uid := GetUserIDBySession(data["session"])) is None:
+        if (uid := GetUserIDBySession(data["session"])) is not None:
             if (gid := CheckAndGetGroupID(data["gid"])):
                 self.__PushGroup(gid, uid, data["number"])
                 logger.info(f"[JoinGroup](POST) Successfully join group. (gid = {gid}, uid = {uid}, number = {data['number']})")

@@ -7,16 +7,16 @@ const { TabPane } = Tabs;
 
 // 假定的产品数据和评论数据
 const product = {
-  category: "类别",
+  category: "類別",
   proposer: "提案人",
   proposerLink: "/proposerLink",
-  name: "商品名",
+  name: "商品名稱",
   targetCount: 100,
   purchaseCount: 50,
   originalPrice: "200",
   currentPrice: "100",
   image: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
-  remainingTime: "剩余时间",
+  remainingTime: "剩餘時間",
 };
 
 const comments = [
@@ -46,12 +46,12 @@ const ProductDetail = () => {
                 <h1>{product.name}</h1>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <h3>目标人数：{product.targetCount}</h3>
+                    <h3>目標人数：{product.targetCount}</h3>
                     <h3>目前人数：{product.purchaseCount}</h3>
                   </div>
                   <div>
-                    <h2>原价：{product.originalPrice}</h2>
-                    <h2>现价：{product.currentPrice}</h2>
+                    <h2>原價：{product.originalPrice}</h2>
+                    <h2>現價：{product.currentPrice}</h2>
                   </div>
                 </div>
                 <Progress percent={(product.purchaseCount / product.targetCount) * 100}
@@ -60,7 +60,7 @@ const ProductDetail = () => {
                   from: '#108ee9',
                   to: '#87d068',
                 }} />
-                <p>剩余时间：{product.remainingTime}</p>
+                <p>剩餘時間：{product.remainingTime}</p>
               </div>
             </div>
           </div>
@@ -68,9 +68,9 @@ const ProductDetail = () => {
             <div style={{ width: '70%' }}>
               <Tabs defaultActiveKey="1">
                 <TabPane tab="商品介绍" key="1">
-                  <p>这里是商品介绍...</p>
+                  <p>這裡是商品介绍...</p>
                 </TabPane>
-                <TabPane tab="评论回复" key="2">
+                <TabPane tab="評論回復" key="2">
                   {comments.map((comment, index) => (
                     <p key={index}><b>{comment.title}:</b> {comment.comment}</p>
                   ))}
@@ -79,7 +79,7 @@ const ProductDetail = () => {
             </div>
             <div style={{ width: '30%' }}>
               <Affix offsetTop={0}>
-                <Button type="primary" style={{ marginBottom: '1rem' }}>点击购买</Button>
+                <Button type="primary" style={{ marginBottom: '1rem' }}>點擊加入</Button>
               </Affix>
             </div>
           </div>

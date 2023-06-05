@@ -3,10 +3,12 @@ import os
 from flask_restful import Api, Resource, reqparse
 from resources.signup import CreateUser
 from resources.signin import SigninUser
+from flask_cors import CORS
 
 # Flask app config:
-server = Flask(__name__)
 
+server = Flask(__name__)
+CORS(server, supports_credentials=True)
 # Api object:
 api = Api(server)
 

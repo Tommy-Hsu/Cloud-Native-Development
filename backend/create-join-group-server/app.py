@@ -1,4 +1,6 @@
 import os
+import time
+from loguru import logger
 
 from flask import Flask
 from flask_cors import CORS
@@ -15,7 +17,7 @@ db = client.CillTan
 
 # Flask app:
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Api object:
 api = Api(app)
@@ -50,34 +52,27 @@ class CreateGroup(Resource):
     parser.add_argument("price"   , type=int, required=True, help="price required")
     parser.add_argument("end_date", type=str, required=True, help="end date required")
     parser.add_argument("least"   , type=int, required=True, help="least number of people required")
+    # parser.add_argument("image"   , type=str, required=False, help="(base64) image of group required")
 
     def post(self):
         data = CreateGroup.parser.parse_args()
         if self.__IsTitleExist(data["title"]):
+            logger.warning(f"[CreateGroup](POST) Title conflict. (title = {data['title']})")
             return {"msg": 1}, 406
 
         if not (uid := GetUserIDBySession(data["session"])):
+            logger.warning(f"[CreateGroup](POST) User session not found. (session = {data['session']})")
             return {"msg": 2}, 404
 
         data.pop("session")
         data["leader"] = uid
         data["attends"] = []
         db.groups.insert_one(data)
-        return self.__MakeResponseGroupInfo(data), 201
+        logger.info(f"[CreateGroup](POST) Successfully inserted group data. (title = {data['title']})")
+        return {"msg": 0}, 201
 
     def __IsTitleExist(self, title: str):
         return db.groups.count_documents({"title": title}) > 0
-    
-    def __MakeResponseGroupInfo(self, data: dict):
-        return {
-            "msg"      : 0,
-            "title"    : data["title"],
-            "price"    : data["price"],
-            "attend"   : 0,
-            "least"    : data["least"],
-            "time_left": GetLeftTime(data["end_date"]),
-            "descript" : data["descript"]
-        }
     
 
 class JoinGroup(Resource):
@@ -89,13 +84,16 @@ class JoinGroup(Resource):
 
     def post(self):
         data = JoinGroup.parser.parse_args()
-        if (uid := GetUserIDBySession(data["session"])) is not None:
+        if (uid := GetUserIDBySession(data["session"])) is None:
             if (gid := CheckAndGetGroupID(data["gid"])):
                 self.__PushGroup(gid, uid, data["number"])
+                logger.info(f"[JoinGroup](POST) Successfully join group. (gid = {gid}, uid = {uid}, number = {data['number']})")
                 return {"msg": 0}, 201
             
+            logger.warning(f"[JoinGroup](POST) Group ID not found. (gid = {data['gid']})")
             return {"msg": 1}, 404
         
+        logger.warning(f"[JoinGroup](POST) User session not found. (session = {data['session']})")
         return {"msg": 2}, 404
 
     def __PushGroup(self, gid: ObjectId, uid: ObjectId, number: int):
@@ -109,13 +107,20 @@ class JoinGroupPage(Resource):
 
     def get(self):
         gid = JoinGroupPage.parser.parse_args()["gid"]
-        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1})
+        groupData = db.groups.find_one({"_id": ObjectId(gid)}, {"_id": 0, "title": 1, "price": 1, "attend": 1, "least": 1, "time_left": 1, "descript": 1, "image": 1})
         if groupData:
             groupData.pop("_id")
             groupData["msg"] = 0
+            logger.info("[JoinGroupPage](GET) Successfully access group data.")
             return groupData, 200
         else:
+            logger.warning("[JoinGroupPage](GET) Cannot access group data.")
             return {"msg": 1}, 404
+
+
+@app.route("/")
+def Hello():
+    return "Flask alive !"
 
 
 api.add_resource(CreateGroup  , "/create")

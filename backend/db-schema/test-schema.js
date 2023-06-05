@@ -59,6 +59,7 @@ function insertGroup() {
         "uid": new mongoose.mongo.ObjectId(),
         "number": Number(0),
     };
+    const image = "Test-Image";
 
     const newGroup = new Group({
         title,
@@ -69,7 +70,8 @@ function insertGroup() {
         price,
         end_date,
         least,
-        attends
+        attends,
+        image
     });
 
     newGroup.save()

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, GoogleOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, Checkbox, Row, Col } from 'antd';
+import axios from 'axios';
 
 const layout = {
   wrapperCol: { span: 24 },
@@ -13,6 +14,16 @@ const tailLayout = {
 export default function Login() {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    try{
+      const response = axios.post('http://user-signupin-server:5000/signin', {
+        email: values.username,
+        password: values.password
+    });
+
+    console.log('Sign in successful', response.data);
+  } catch (error) {
+    console.error('Sign in failed', error);
+  }
   };
 
   const onFinishFailed = (errorInfo) => {

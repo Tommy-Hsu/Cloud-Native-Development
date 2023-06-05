@@ -100,7 +100,8 @@ const MyForm = () => {
               {type}
             </Option>
           ))} */}
-          <Option value="0">團鳩</Option>
+          <Option v
+          alue="0">團鳩</Option>
           <Option value="1">團購</Option>
         </Select>
       </Form.Item>

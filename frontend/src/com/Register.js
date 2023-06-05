@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined, GoogleOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, Checkbox, Row, Col } from 'antd';
-
+import axios from 'axios';
 const layout = {
   wrapperCol: { span: 24 },
 };
@@ -11,8 +11,17 @@ const tailLayout = {
 };
 
 export default function Register() {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
+    try{
+      const response = await axios.post('http://user-signupin-server:5000/signup', {
+        email: values.email,
+        password: values.password,
+    });
+    console.log('Register success', response.data);
+  } catch (error) {
+    console.error('Register failed', error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -48,12 +57,12 @@ export default function Register() {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
           >
-            <Form.Item
+            {/* <Form.Item
               name="username"
               rules={[{ required: true, message: '請輸入用戶名!' }]}
             >
               <Input prefix={<UserOutlined />} placeholder="用戶名" />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
               name="email"

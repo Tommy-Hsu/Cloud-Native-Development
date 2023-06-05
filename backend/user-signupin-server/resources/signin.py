@@ -32,7 +32,9 @@ class SigninUser(Resource):
         if targetcol in collist:
             mycol = database[targetcol]
             if mycol.find_one(mydict): # 檢查是否有重複的 email
-                response = make_response(jsonify({'msg': 0}))
+                uid = mycol.find_one(mydict)['_id']
+                database.sessions.insert_one({"uid": uid, "session": str(uid)})
+                response = make_response(jsonify({'msg': 0, "session": str(uid)}))
                 response.status_code = 200
                 return response
             else:

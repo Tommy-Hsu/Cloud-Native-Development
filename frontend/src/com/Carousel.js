@@ -10,8 +10,8 @@ const contentStyle = {
     margin: 'auto',
     // background: '#364d79',
     backgroundRepeat: 'no-repeat',
-    // backgroundImage: `url('${imgUrl}')`,
-    backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
+    backgroundImage: `url('https://i.imgur.com/zYsCYkW.jpeg')`,
+    // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
 };

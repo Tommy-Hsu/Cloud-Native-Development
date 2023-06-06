@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, DatePicker, Button, InputNumber } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Select, DatePicker, Button, InputNumber, Upload } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
+import { UploadOutlined } from '@ant-design/icons';
 import { reactLocalStorage } from 'reactjs-localstorage';
 const { Option } = Select;
 
 
-const categories = ['商品',"揪團"];
+
+const categories = ['商品', '揪團'];
 const initialValues = {
   session: '',
   type: undefined,
@@ -21,11 +23,40 @@ const initialValues = {
 
 const MyForm = () => {
   const [form] = Form.useForm();
-  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [session, setSession] = useState(null)
 
   useEffect(() => {
-    setSession(reactLocalStorage.get('session'));
+    const session = localStorage.getItem('session');
+    if (session) {
+      form.setFieldsValue({ session });
+    }
   }, []);
+
+  const handleUpload = (file) => {
+    setLoading(true);
+    // 模拟异步上传请求
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      axios.post('your-backend-upload-url', formData)
+        .then((response) => {
+          const imageUrl = response.data.imageUrl;
+          setImageUrl(imageUrl);
+          form.setFieldsValue({ image: imageUrl });
+          setLoading(false);
+          resolve();
+        })
+        .catch((error) => {
+          console.error('图片上传失败', error);
+          setLoading(false);
+          reject();
+        });
+    });
+  };
+
   const onFinish = async (values) => {
     const type = parseInt(values.type, 10);
     const category = values.category;
@@ -44,11 +75,10 @@ const MyForm = () => {
       price,
       end_date,
       least,
-      image
+      image,
     });
 
     try {
-      // 执行POST请求
       const response = await axios.post('http://localhost:8080/create', {
         session,
         type,
@@ -58,15 +88,12 @@ const MyForm = () => {
         price,
         end_date,
         least,
-        image
+        image,
       });
 
       console.log('POST请求成功', response.data);
-      // 在这里可以处理请求成功后的逻辑
-
     } catch (error) {
       console.error('POST请求失败', error);
-      // 在这里可以处理请求失败后的逻辑
     }
   };
 
@@ -79,13 +106,6 @@ const MyForm = () => {
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
     >
-      {/* <Form.Item
-        label="Session"
-        name="session"
-      >
-        <Input />
-      </Form.Item> */}
-
       <Form.Item
         label="名稱"
         name="title"
@@ -100,13 +120,11 @@ const MyForm = () => {
         rules={[{ required: true, message: '請選擇種類' }]}
       >
         <Select placeholder="請選擇種類">
-          {/* {categories.map((type) => (
+          {categories.map((type) => (
             <Option key={type} value={type}>
               {type}
             </Option>
-          ))} */}
-          <Option value="0">團鳩</Option>
-          <Option value="1">團購</Option>
+          ))}
         </Select>
       </Form.Item>
 
@@ -142,9 +160,9 @@ const MyForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="開始時間-結束時間"
+        label="結束時間"
         name="end_date"
-        rules={[{ required: true, message: '請選擇時間範圍' }]}
+        rules={[{ required: true, message: '請選擇時間' }]}
       >
         <DatePicker showTime format="YYYY-MM-DD" />
       </Form.Item>
@@ -156,18 +174,40 @@ const MyForm = () => {
       >
         <Input.TextArea rows={4} />
       </Form.Item>
+      
+      <Form.Item
+        label="圖片"
+        name="image"
+        rules={[{ required: true, message: '請輸入圖片路徑' }]}
+      >
+        <Input />
+      </Form.Item>
 
+      {/* <Form.Item
+        label="圖片"
+        name="image"
+        rules={[{ required: true, message: '請上傳圖片' }]}
+      >
+        <Upload
+          name="image"
+          beforeUpload={handleUpload}
+          listType="picture"
+          showUploadList={false}
+        >
+          {imageUrl ? (
+            <img src={imageUrl} alt="圖片預覽" style={{ maxWidth: '100%' }} />
+          ) : (
+            <Button icon={<UploadOutlined />} loading={loading}>
+              上傳圖片
+            </Button>
+          )}
+        </Upload>
+      </Form.Item> */}
+      {/* 其他表单项 */}
       <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
         <Button type="primary" htmlType="submit">
           提交
         </Button>
-      </Form.Item>
-      <Form.Item
-        label="圖片"
-        name="image"
-        rules={[{ required: true, message: '請輸入圖片網址' }]}
-      >
-        <Input />
       </Form.Item>
     </Form>
   );

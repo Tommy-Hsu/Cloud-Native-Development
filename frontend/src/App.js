@@ -4,13 +4,17 @@ import CustomCard from './com/Card';
 import Navbar from './com/Navbar';
 import Login from './com/Login';
 import Register from './com/Register';
-import Carousel from './com/Carousel';
+import Home from './com/Home';
 import Footer from './com/footer';
 // import Detailpage from './com/newpage'
 import Detailpage from './com/itempage'
 import User from './com/user'
 import Create from './com/create'
-import Search_card from './com/search_Card'
+// <<<<<<< HEAD
+// import Search_card from './com/search_Card'
+// =======
+//import Search from './com/Search'
+// >>>>>>> 0a164bbf650932e2430274c1f0b76f7538cf8519
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 function App() {
@@ -27,11 +31,15 @@ function App() {
           <Route path="/" exact>
             <div className="home">
               <Navbar />
-              <Carousel />
-              <CustomCard data={cardData} /> 
-              <Footer />      
+                <Home />   
             </div>
           </Route>
+
+          {/* <Route path="/search">
+            <div className='search'>
+              <Search />
+            </div>
+          </Route> */}
 
           <Route path="/register">
             <div className='register'>
@@ -52,12 +60,12 @@ function App() {
             </div>
           </Route>
 
-          <Route path="/search_Card">
+          {/* <Route path="/search_Card">
             <div className='search_Card'>
             <Navbar />
               <Search_card />
             </div>
-          </Route>
+          </Route> */}
 
 
           <Route path="/detail">

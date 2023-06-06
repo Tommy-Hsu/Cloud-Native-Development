@@ -74,9 +74,9 @@ const CustomHeader = () => {
             <Form.Item name="search">
               <Input.Search placeholder="搜尋集資項目、揪團活動" enterButton />
             </Form.Item>
-            <Link to="/search_Card">
+            {/* <Link to="/search_Card">
             <Button type="primary" htmlType="submit">Search</Button>
-                </Link>
+                </Link> */}
             
           </Form>
             </div>

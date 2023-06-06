@@ -195,7 +195,7 @@ const Home = () => {
               <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
                 <div style={styles.cardContainer}>
                   <Card hoverable>
-                    <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+                    <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
                       <img alt={card.title} src={card.img} style={styles.image} />
                     </Link>
                     <Meta title={card.title} description={card.description} />

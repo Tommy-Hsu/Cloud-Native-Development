@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -84,7 +85,6 @@ function Activity(props) {
 export default class UserGroupList extends Component {
   constructor(pros) {
       super(pros);
-
       this.activityList = this.activityList.bind(this);
       this.joinActivity = this.joinActivity.bind(this);
       

@@ -12,7 +12,7 @@ services:
     networks:
       - ChillTan
     depends_on:
-      - db-endpoints-server
+      # - db-endpoints-server
       - create-join-group-server
       # - mongo_one
   

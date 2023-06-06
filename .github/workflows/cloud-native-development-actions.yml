@@ -19,6 +19,7 @@ jobs:
   
       - name: Build and run Docker Compose
         run: |
+          docker swarm init
           docker-compose up -d
 
       - name: Run tests with Docker Compose

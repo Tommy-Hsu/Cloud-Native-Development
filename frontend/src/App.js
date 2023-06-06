@@ -6,7 +6,8 @@ import Login from './com/Login';
 import Register from './com/Register';
 import Carousel from './com/Carousel';
 import Footer from './com/footer';
-import Detailpage from './com/newpage'
+// import Detailpage from './com/newpage'
+import Detailpage from './com/itempage'
 import User from './com/user'
 import Create from './com/create'
 

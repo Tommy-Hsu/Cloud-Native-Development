@@ -23,4 +23,4 @@ let appServer = app.listen(port,()=>{
     console.log(`server listen to http://localhost:${port}`)
 })
 
-modules.exports = appserver;
+module.exports = appServer;

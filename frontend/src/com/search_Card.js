@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 const SearchCard = () => {
     const[cardData, setCardData] = useState([]);
     const { keyword } = useParams();
+    const savedSession = reactLocalStorage.get('session');
   
     useEffect(() => {
         const fetchData = async () => {
@@ -12,6 +13,8 @@ const SearchCard = () => {
                 const data = await response.json();
                 if (Array.isArray(data)) {
                     const dataFromBackend = data.map(group =>({
+                      uid: savedSession,
+                      gid: group._id,
                       title: group.title,
                       description: group.description,
                       type: group.type,
@@ -105,18 +108,12 @@ const SearchCard = () => {
               <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>
                 {cardData.map((card, index) => (
                   <Col key={index} {...getColProps()}>
-                    <Link to={card.productURL} style={styles.link}>
-                    <div style={styles.cardContainer}>
-                      <Card
-                        hoverable
-                        cover={
-                          <img
-                            alt={card.title}
-                            src={card.coverImage}
-                            style={styles.image}
-                          />
-                        }
-                      >
+                    <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
+                      <div style={styles.cardContainer}>
+                        <Card hoverable>
+                        <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
+                          <img alt={card.title} src={card.img} style={styles.image} />
+                        </Link>
                         <Meta title={card.title} description={card.description} />
                         <Progress
                           percent={(card.purchaseCount / card.targetCount) * 100}
@@ -127,9 +124,7 @@ const SearchCard = () => {
                           }}
                         />
                         <div style={styles.linkContainer}>
-                          
                             查看詳情
-                         
                         </div>
                       </Card>
                     </div> 

@@ -10,6 +10,7 @@ const Search = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [cardData, setCardData] = useState([]);
+  const savedSession = reactLocalStorage.get('session');
   const [searchValue, setSearchValue] = useState(searchParams.get('title') || '');
   const [type, setType] = useState(searchParams.get('type') || null);
   const [category, setCategory] = useState(searchParams.get('category') || null);
@@ -40,6 +41,8 @@ const Search = () => {
 
       if (Array.isArray(data)) {
         const dataFromBackend = data.map((group) => ({
+          uid: savedSession,
+          gid: group._id,
           title: group.title,
           description: group.description,
           type: group.type,
@@ -138,10 +141,10 @@ const Search = () => {
           <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>
             {cardData.map((card, index) => (
               <Col key={index} {...getColProps()}>
-                <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+                <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
                   <div style={styles.cardContainer}>
                     <Card hoverable>
-                      <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+                      <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
                         <img alt={card.title} src={card.img} style={styles.image} />
                       </Link>
                       <Meta title={card.title} description={card.description} />

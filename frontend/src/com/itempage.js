@@ -49,7 +49,6 @@ function Activity(props) {
                     from: '#108ee9',
                     to: '#87d068',
                 }} />
-                <p>剩餘時間：{props.activity.end_date}</p>
                 <p>截止時間：{props.activity.end_date}</p>
             </div>
             <Affix offsetTop={0}>

@@ -20,11 +20,11 @@ jobs:
         python -m pip install --upgrade pip
         cd backend/user-signupin-server
         pip install -r requirements.txt
+        source .env
+        echo $MONGODB_URL
     - name: Test with unittest 
       run: |
         cd backend/user-signupin-server
-        source .env
-        echo $MONGODB_URL
         python -m unittest test.py
         
     - name: Test Coverage 

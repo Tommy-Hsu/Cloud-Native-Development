@@ -28,5 +28,5 @@ jobs:
     - name: Test Coverage 
       run: |
         cd backend/user-signupin-server
-        coverage run -m unittest StudentsTest.py
-        coverage report
+        coverage run -m unittest test.py
+        coverage report -m

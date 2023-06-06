@@ -24,7 +24,9 @@ jobs:
     - name: Install dependencies
       run: |
         cd backend/user-signupin-server
-        source .env
+        pwd
+        ls -al
+        source backend/user-signupin-server/.env
         echo $MONGODB_URL
     - name: Test with unittest 
       run: |

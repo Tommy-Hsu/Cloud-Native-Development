@@ -1,4 +1,4 @@
-[![Docker-Compose and Dockerfile Check](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml/badge.svg)](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml)
+[![Docker-Compose and Dockerfile Check](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml/badge.svg)](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/cloud-native-development-actions.yml) [![user-signupin-server CI](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/user-signupin-server.yml/badge.svg)](https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/user-signupin-server.yml)
 
 # Getting Started with ChillTan
 

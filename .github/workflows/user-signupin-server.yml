@@ -24,6 +24,7 @@ jobs:
       run: |
         cd backend/user-signupin-server
         source .env
+        echo $MONGODB_URL
         python -m unittest test.py
         
     - name: Test Coverage 

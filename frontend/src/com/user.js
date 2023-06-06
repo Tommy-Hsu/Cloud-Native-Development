@@ -25,20 +25,19 @@ function Activity(props) {
   };
 
   return(
-    <Card title={props.activity.title}>
-      <ul>
-          <li>提案人：{props.activity.leader}</li>
-          <li>活動種類: {types[props.activity.type]}</li>
-          <li>活動類別: {categories[props.activity.category]}</li>
-          <li>活動描述: {props.activity.descript}</li>
-          <li>目前人數/最低人數: {props.activity.number} / {props.activity.least}</li>
-          <li>剩餘時間: {props.activity.end_date}</li>
-          <Button>
-              <a href="" onClick={() => props.deleteActivity(props.activity._id, props.delete_joined)}>Delete</a>
-          </Button>
-      </ul>
-    </Card>
-  );
+    <Card title={props.activity.title} style={cardStyle}>
+    <ul style={listStyle}>
+        <li style={listItemStyle}>提案人：{props.activity.leader}</li>
+        <li style={listItemStyle}>活動種類: {types[props.activity.type]}</li>
+        <li style={listItemStyle}>活動類別: {categories[props.activity.category]}</li>
+        <li style={listItemStyle}>活動描述: {props.activity.descript}</li>
+        <li style={listItemStyle}>剩餘時間: {props.activity.end_date}</li>
+        <Button>
+            <a href="" onClick={() => props.deleteActivity(props.activity._id, props.delete_joined)}>Delete</a>
+        </Button>
+    </ul>
+  </Card>
+);
 }
 
 export default class UserGroupList extends Component {
@@ -151,15 +150,15 @@ export default class UserGroupList extends Component {
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-content">
-            <Avatar size={64} icon={<UserOutlined />} />
-            <h2>發起的活動</h2>
+          <div className="site-layout-content" style={contentStyle}>
+            <Avatar size={64} icon={<UserOutlined />} style={avatarStyle} />
+            <h2 style={headerStyle}>發起的活動</h2>
               {this.host_activityList()}
           </div>
           <br/>
-          <div className="site-layout-content">
-            <Avatar size={64} icon={<UserOutlined />} />
-            <h2>參加的活動</h2>
+          <div className="site-layout-content" style={contentStyle}>
+            <Avatar size={64} icon={<UserOutlined />} style={avatarStyle} />
+            <h2 style={headerStyle}>參加的活動</h2>
               {this.join_activityList()}
           </div>
         </Content>
@@ -168,7 +167,6 @@ export default class UserGroupList extends Component {
     );
   }
 }
-
 // return (
 //   <Layout className="layout">
 //     <Content style={{ padding: '0 50px' }}>

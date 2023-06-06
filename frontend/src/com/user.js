@@ -17,7 +17,7 @@ function Activity(props) {
           <li>活動描述: {props.activity.descript}</li>
           <li>剩餘時間: {props.activity.end_date}</li>
           <Button>
-              <a href="#" onClick={() => props.deleteActivity(props.activity._id)}>Delete</a>
+              <a href="" onClick={() => props.deleteActivity(props.activity._id)}>Delete</a>
           </Button>
       </ul>
     </Card>
@@ -32,32 +32,39 @@ export default class UserGroupList extends Component {
       this.deleteActivity = this.deleteActivity.bind(this);
       
       this.state = {
-          activities: []
+          activities: [],
+          uid: 0,
       };
-
   }
 
   componentDidMount() {
       const arr = window.location.href.split("/");
-      axios.get('http://localhost:5000/user/' + arr[arr.length-1])
+      const uuid = arr[arr.length-1].replace("?uid=", "")
+      
+
+      axios.get('http://localhost:5000/user/?uid=' + uuid)
           .then(response => {
               this.setState({
-                activities: response.data
-              })  
+                activities: response.data,
+                uid: uuid,
+              });
+
+              console.log(this.state.uid);
           })
           .catch(err => {
               console.log(err);
           })
   }
 
-  deleteActivity(id) {
-    // console.log(id)
-    // axios.delete('http://localhost:5000/user/' + id)
-    //     .then(res => console.log(res.data));
+  deleteActivity(gid) {
+    console.log('gid', gid);
+    console.log('uid', this.state.uid);
+    axios.delete('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
+        .then(res => console.log(res.data));
     
-    // this.setState({
-    //     activities: this.state.activities.filter(el => el._id !== id)
-    // })
+    this.setState({
+        activities: this.state.activities.filter(el => el._id !== gid)
+    })
   }
 
   activityList() {

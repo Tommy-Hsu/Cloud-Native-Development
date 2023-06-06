@@ -2,11 +2,11 @@ const router = require('express').Router();
 let Group = require('../models/group.model');
 
 // get all the users in database
-router.route('/').get((req, res) => {
-    Group.find()
-    .then(groups => res.json(groups))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.route('/').get((req, res) => {
+//     User.find()
+//     .then(users => res.json(users))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 // add new user into database
 router.route('/add').post((req, res) => {

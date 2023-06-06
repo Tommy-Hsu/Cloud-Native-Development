@@ -51,9 +51,9 @@ function insertGroup() {
     const leader = new mongoose.mongo.ObjectId();
     const type = Number(0);
     const category = Number(0);
-    const descript = "Test-Group-descript3";
+    const descript = "Test-Group-descript4";
     const price = Number(0);
-    const end_date = "[Year][Month][Day]3";
+    const end_date = "[Year][Month][Day]4";
     const least = Number(0);
     const attend1 = {
         uid: new mongoose.mongo.ObjectId(),

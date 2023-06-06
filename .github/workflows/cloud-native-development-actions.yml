@@ -20,13 +20,13 @@ jobs:
       - name: Build and run Docker Compose
         run: |
           docker swarm init
-          docker stack deploy --compose-file docker-compose.yml github_action
-          docker-compose up -d
+          docker compose build
+          docker stack deploy --compose-file docker-stack.yml chilltan
 
       - name: Run tests with Docker Compose
         run: |
           # Run your tests against the running Docker Compose services
 
       - name: Clean up
-        run: docker-compose down
+        run: docker stack rm chilltan
 

@@ -12,21 +12,19 @@ services:
     networks:
       - ChillTan
     depends_on:
-      # - db-endpoints-server
+      - db-endpoints-server
       - create-join-group-server
-      # - mongo_one
   
   db-endpoints-server:
     build:
       context: ./backend/db-endpoints-server
       dockerfile: Dockerfile
+    image: db-endpoints-server:latest
     ports:
       - 5000:5000
     container_name: db-endpoints-server
     networks:
       - ChillTan
-    # depends_on:
-    #   - mongo_one
 
   create-join-group-server:
     build:

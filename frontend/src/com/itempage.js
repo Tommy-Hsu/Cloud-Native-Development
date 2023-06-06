@@ -43,7 +43,7 @@ function Activity(props) {
                         <h2>價格： {props.activity.price}</h2>
                     </div>
                 {/* </div> */}
-                <Progress percent={(5 / props.activity.targetCount) * 100}
+                <Progress percent={Math.round((props.activity.number / props.activity.least) * 100)}
                 status="active"
                 strokeColor={{
                     from: '#108ee9',

@@ -23,6 +23,7 @@ const SearchCard = () => {
                       price: group.price,
                       end_date: group.end_date,
                       least: group.least,
+                      number: group.number,
             }));
                     setCardData(dataFromBackend);
                     console.log(cardData)
@@ -116,7 +117,7 @@ const SearchCard = () => {
                         </Link>
                         <Meta title={card.title} description={card.description} />
                         <Progress
-                          percent={(card.purchaseCount / card.targetCount) * 100}
+                          percent={Math.round((card.number / card.least) * 100)}
                           status="active"
                           strokeColor={{
                             from: '#108ee9',

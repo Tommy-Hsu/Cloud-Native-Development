@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined, GoogleOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, Checkbox, Row, Col } from 'antd';
 import axios from 'axios';
@@ -13,6 +13,7 @@ const tailLayout = {
 };
 
 export default function Register() {
+  const history = useHistory();
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     try{
@@ -21,6 +22,7 @@ export default function Register() {
         password: values.password,
     });
     console.log('Register success', response.data);
+    history.push('/login');
   } catch (error) {
     console.error('Register failed', error);
     }

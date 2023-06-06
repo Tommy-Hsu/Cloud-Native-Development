@@ -3,12 +3,13 @@ import { Form, Input, Select, DatePicker, Button, InputNumber, Upload } from 'an
 import moment from 'moment';
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import { reactLocalStorage } from 'reactjs-localstorage';
 const { Option } = Select;
 
 
 
-const categories = ['商品', '揪團'];
+const categories = ['團購', '揪團'];
 const initialValues = {
   session: '',
   type: undefined,
@@ -19,9 +20,11 @@ const initialValues = {
   end_date: '',
   least: undefined,
   image: '',
+  number:0,
 };
 
 const MyForm = () => {
+  const history = useHistory();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
@@ -65,6 +68,7 @@ const MyForm = () => {
     const least = parseInt(values.least, 10);
     // const session = values.session;
     const image = values.image;
+    const number = 0;
     const end_date = moment(values.end_date).format('YYYY-MM-DD');
 
     console.log('Form values:', {
@@ -77,6 +81,7 @@ const MyForm = () => {
       end_date,
       least,
       image,
+      number,
     });
 
     try {
@@ -90,9 +95,11 @@ const MyForm = () => {
         end_date,
         least,
         image,
+        number,
       });
 
       console.log('POST请求成功', response.data);
+      history.push('/');  
     } catch (error) {
       console.error('POST请求失败', error);
     }
@@ -121,11 +128,13 @@ const MyForm = () => {
         rules={[{ required: true, message: '請選擇種類' }]}
       >
         <Select placeholder="請選擇種類">
-          {categories.map((type) => (
+          {/* {categories.map((type) => (
             <Option key={type} value={type}>
               {type}
             </Option>
-          ))}
+          ))} */}
+          <Option value="0">團購</Option>
+          <Option value="1">團揪</Option>
         </Select>
       </Form.Item>
 

@@ -20,7 +20,7 @@ function Activity(props) {
             <div style={{ width: '40%', marginRight: '2rem' }}>
               <div style={{ height: '420px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
                 <img src={props.activity.image} alt="product-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/>
-                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt="product-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/>
+                {/* <img src={} alt="product-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/> */}
               </div>
             </div>
             <div style={{ width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

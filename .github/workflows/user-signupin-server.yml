@@ -26,8 +26,8 @@ jobs:
         cd backend/user-signupin-server
         pwd
         ls -al
-        source .env
-        echo $MONGODB_URL
+        . .env
+        echo "$MONGODB_URL"
     - name: Test with unittest 
       run: |
         cd backend/user-signupin-server

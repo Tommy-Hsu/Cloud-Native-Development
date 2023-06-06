@@ -40,25 +40,23 @@ export default class UserGroupList extends Component {
   componentDidMount() {
       const arr = window.location.href.split("/");
       const uuid = arr[arr.length-1].replace("?uid=", "")
-      
 
+      // 透過 url 解析出來的 user id (uid) 去 db-endpoint-server 找 user 目前加入的活動
       axios.get('http://localhost:5000/user/?uid=' + uuid)
           .then(response => {
               this.setState({
                 activities: response.data,
                 uid: uuid,
               });
-
-              console.log(this.state.uid);
           })
           .catch(err => {
               console.log(err);
           })
   }
 
+  // 把對應 item 的 group id (gid) 跟當前 user 的 user id (uid) 拿出來，傳給 db-endpoint-server
   deleteActivity(gid) {
-    console.log('gid', gid);
-    console.log('uid', this.state.uid);
+    console.log(`[frontend] DELETE target - gid ${gid}, uid ${this.state.uid}`);
     axios.delete('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
         .then(res => console.log(res.data));
     

@@ -86,7 +86,7 @@ export default class UserGroupList extends Component {
       
       this.state = {
         activities: [],
-        uid: 0,
+        uid: 0,             // 紀錄當前的 userid，之後加入活動要使用
       };
   }
 
@@ -98,9 +98,7 @@ export default class UserGroupList extends Component {
       const ggid = arr[0].replace("gid=", "");
       const uuid = arr[1].replace("uid=", "");
 
-      console.log('gid', ggid);
-      console.log('uid', uuid);
-
+      // 透過 url 解析出來的 group id (gid) 去 db-endpoint-server 找對應的活動資料
       axios.get('http://localhost:5000/user/?gid=' + ggid)
           .then(response => {
             this.setState({
@@ -113,10 +111,9 @@ export default class UserGroupList extends Component {
           })
   }
 
+  // 把當前 item 的 group id (gid) 跟 當前瀏覽的 user id (uid) 拿出來，傳給 db-endpoint-server
   joinActivity(gid) {
-    console.log('gid', gid);
-    console.log('uid', this.state.uid);
-
+    console.log(`[frontend] JOIN target - gid ${gid}, uid ${this.state.uid}`);
     axios.post('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
         .then(res => console.log(res.data))
   }

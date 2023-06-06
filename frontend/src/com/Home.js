@@ -70,7 +70,9 @@ const Home = () => {
       const response = await fetch('http://localhost:5001/all-events');
       const data = await response.json();
       if (Array.isArray(data)) {
-        const dataFromBackend = data.map((group) => ({
+        const dataFromBackend = data.map((group) => {
+          console.log(group.img);
+          return({
           gid: group._id,
           leader: group.leader,
           title: group.title,
@@ -81,8 +83,9 @@ const Home = () => {
           price: group.price,
           end_date: group.end_date,
           least: group.least,
-          img: group.img,
-        }));
+          img: group.image,
+          })
+        });
         setCardData(dataFromBackend);
         console.log(cardData);
       } else {
@@ -188,7 +191,7 @@ const Home = () => {
                 <div style={styles.cardContainer}>
                   <Card hoverable>
                     <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
-                      <img alt={card.title} src={card.coverImage} style={styles.image} />
+                      <img alt={card.title} src={card.img} style={styles.image} />
                     </Link>
                     <Meta title={card.title} description={card.description} />
                     <Progress

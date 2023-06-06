@@ -26,6 +26,7 @@ const CustomCard = () => {
           price: group.price,
           end_date: group.end_date,
           least: group.least,
+          img: group.img,
     }));
         setCardData(dataFromBackend);
         console.log(cardData)
@@ -119,7 +120,7 @@ const CustomCard = () => {
                     cover={
                       <img
                         alt={card.title}
-                        src={card.coverImage}
+                        src={card.img}
                         style={styles.image}
                       />
                     }

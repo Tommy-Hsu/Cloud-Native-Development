@@ -8,6 +8,22 @@ const { Header, Content, Footer } = Layout;
 function Activity(props) {
   const types = ['團鳩',"團購"];
   const categories = ['遊戲',"戶外","時尚","教育","家庭","文創"];
+  const cardStyle = {
+    marginBottom: '20px',
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)'
+  };
+
+  const listStyle = {
+    listStyleType: 'none',
+    padding: '0',
+    margin: '0'
+  };
+
+  const listItemStyle = {
+    padding: '10px 0',
+    borderBottom: '1px solid #f0f0f0'
+  };
+
   return(
     <Card title={props.activity.title}>
       <ul>
@@ -109,6 +125,24 @@ export default class UserGroupList extends Component {
     //       </table>
     //   </div>
     // );
+
+    const contentStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '20px'
+    };
+
+    const headerStyle = {
+      color: '#1890ff',
+      fontSize: '24px',
+      fontWeight: 'bold',
+      marginBottom: '20px'
+    };
+
+    const avatarStyle = {
+      marginBottom: '20px'
+    };
     return (
       <Layout className="layout">
         <Content style={{ padding: '0 50px' }}>

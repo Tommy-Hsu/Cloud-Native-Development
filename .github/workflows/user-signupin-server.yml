@@ -17,9 +17,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        cd backend/user-signupin-server
         python -m pip install --upgrade pip
-        pip install -r requirements.txtL
+        cd backend/user-signupin-server
+        pip install -r requirements.txt
+        
     - name: Install dependencies
       run: |
         cd backend/user-signupin-server

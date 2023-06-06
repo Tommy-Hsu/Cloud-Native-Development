@@ -66,7 +66,8 @@ class CreateGroup(Resource):
             return {"msg": 2}, 404
 
         data.pop("session")
-        data["leader"] = uid
+        data["leader" ] = uid
+        data["number" ] = 0
         data["attends"] = []
         db.groups.insert_one(data)
         logger.info(f"[CreateGroup](POST) Successfully inserted group data. (title = {data['title']})")

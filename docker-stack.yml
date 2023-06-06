@@ -14,6 +14,8 @@ services:
     depends_on:
       - db-endpoints-server
       - create-join-group-server
+    deploy:
+      replicas: 3
   
   db-endpoints-server:
     build:
@@ -37,8 +39,8 @@ services:
       - ChillTan
     ports:
       - 8080:5000
-    # deploy:
-    #   replicas: 2
+    deploy:
+      replicas: 3
   
   user-signupin-server:
     build: 
@@ -50,7 +52,9 @@ services:
     container_name: user-signupin-server
     networks:
       - ChillTan
-  
+    deploy:
+      replicas: 3
+
   event-search:
     build:
       context: backend/event-search
@@ -61,6 +65,8 @@ services:
       - ChillTan
     ports:
       - 5001:5000
+    deploy:
+      replicas: 3
 
   prometheus:
     build:
@@ -124,8 +130,8 @@ services:
 
 networks:
   ChillTan:
-    name: ChillTanNet
-    driver: bridge
+    name: ChillTanStackNet
+    driver: overlay
     # attachable: true
 
   # mongo_one:

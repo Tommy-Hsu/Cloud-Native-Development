@@ -128,8 +128,9 @@ export default class UserGroupList extends Component {
 
     const contentStyle = {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
       gap: '20px'
     };
 
@@ -137,7 +138,8 @@ export default class UserGroupList extends Component {
       color: '#1890ff',
       fontSize: '24px',
       fontWeight: 'bold',
-      marginBottom: '20px'
+      marginBottom: '20px',
+      width: '100%'
     };
 
     const avatarStyle = {

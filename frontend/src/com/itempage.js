@@ -36,7 +36,6 @@ function Activity(props) {
                 {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
                     <div>
                         <h2>目標人數： {props.activity.least}</h2>
-                        <h2>目前人數： 5</h2>
                         <h2>目前人數： {props.activity.number}</h2>
                     </div>
                     <div>
@@ -59,7 +58,6 @@ function Activity(props) {
                 onClick={() => props.joinActivity(props.activity._id)}
               >
                 點擊加入
-                我要加入
               </Button>
             </Affix>
         </div>

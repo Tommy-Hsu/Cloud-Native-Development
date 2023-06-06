@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Progress, Card, Row, Col, Space, Select } from 'antd';
 import { Link } from 'react-router-dom';
 import { Carousel, Layout } from 'antd';
+
+import { reactLocalStorage } from 'reactjs-localstorage';
+
 const { Meta } = Card;
 
 const { Content } = Layout;
@@ -64,7 +67,8 @@ const cardData = [
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cardData, setCardData] = useState([]);
-
+  const [session, setSession] = useState(null)
+  const savedSession = reactLocalStorage.get('session');
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:5001/all-events');
@@ -73,6 +77,7 @@ const Home = () => {
         const dataFromBackend = data.map((group) => {
           console.log(group.img);
           return({
+          uid: savedSession,
           gid: group._id,
           leader: group.leader,
           title: group.title,
@@ -187,7 +192,7 @@ const Home = () => {
         <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>
           {cardData.map((card, index) => (
             <Col key={index} {...getColProps()}>
-              <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+              <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
                 <div style={styles.cardContainer}>
                   <Card hoverable>
                     <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>

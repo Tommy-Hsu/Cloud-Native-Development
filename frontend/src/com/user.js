@@ -15,6 +15,7 @@ function Activity(props) {
           <li>活動種類: {types[props.activity.type]}</li>
           <li>活動類別: {categories[props.activity.category]}</li>
           <li>活動描述: {props.activity.descript}</li>
+          <li>目前人數/最低人數: {props.activity.number} / {props.activity.least}</li>
           <li>剩餘時間: {props.activity.end_date}</li>
           <Button>
               <a href="" onClick={() => props.deleteActivity(props.activity._id, props.delete_joined)}>Delete</a>

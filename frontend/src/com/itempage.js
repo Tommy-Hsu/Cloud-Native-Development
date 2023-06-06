@@ -35,7 +35,7 @@ function Activity(props) {
                 {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
                     <div>
                         <h2>目標人數： {props.activity.least}</h2>
-                        <h2>目前人數： 5</h2>
+                        <h2>目前人數： {props.activity.number}</h2>
                     </div>
                     <div>
                         <h2>價格： {props.activity.price}</h2>
@@ -47,7 +47,7 @@ function Activity(props) {
                     from: '#108ee9',
                     to: '#87d068',
                 }} />
-                <p>剩餘時間：{props.activity.end_date}</p>
+                <p>截止時間：{props.activity.end_date}</p>
             </div>
             <Affix offsetTop={0}>
                 
@@ -55,7 +55,7 @@ function Activity(props) {
                 type="primary" style={{ marginBottom: '1rem', width: '100%' }}
                 onClick={() => props.joinActivity(props.activity._id)}
               >
-                點擊加入
+                我要加入
               </Button>
             </Affix>
         </div>

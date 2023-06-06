@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 const SearchCard = () => {
     const[cardData, setCardData] = useState([]);
     const { keyword } = useParams();
-
+  
     useEffect(() => {
         const fetchData = async () => {
             try{

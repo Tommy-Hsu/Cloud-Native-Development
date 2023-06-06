@@ -10,6 +10,7 @@ import Footer from './com/footer';
 import Detailpage from './com/itempage'
 import User from './com/user'
 import Create from './com/create'
+import Search_card from './com/search_Card'
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 function App() {
@@ -50,6 +51,14 @@ function App() {
               <User />
             </div>
           </Route>
+
+          <Route path="/search_Card">
+            <div className='search_Card'>
+            <Navbar />
+              <Search_card />
+            </div>
+          </Route>
+
 
           <Route path="/detail">
             <div className='Detailpage'>

@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined, GoogleOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, Checkbox, Row, Col } from 'antd';
+import axios from 'axios';
+import { reactLocalStorage } from 'reactjs-localstorage'; // 导入useLocalStorage钩子函数
 
 const layout = {
   wrapperCol: { span: 24 },
@@ -11,8 +13,41 @@ const tailLayout = {
 };
 
 export default function Login() {
-  const onFinish = (values) => {
+  const history = useHistory(); // 使用useHistory来进行页面跳转
+
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
+    try {
+      const response = await axios.post('http://localhost:7777/signin', {
+        email: values.username,
+        password: values.password
+      });
+
+      console.log('Sign in successful', response.data);
+
+      if (response.data) {
+        // 接收后端提供的 session 和 msg
+        const session = response.data.session;  
+        const msg = response.data.msg;
+        // 现在你可以使用 session 和 msg 进行其他操作
+        console.log('Received session: ', session);
+        console.log('Received msg: ', msg);
+
+        reactLocalStorage.set('session', session);
+
+        const savedSession = reactLocalStorage.get('session');
+        if(savedSession === session){
+          console.log('Session saved successfully');
+        }else{
+          console.error('Session save failed');
+        }
+        history.push('/'); // 跳转到最初始页面
+      } else {
+        console.error('Sign in failed: No data received from backend');
+      }
+    } catch (error) {
+      console.error('Sign in failed', error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {

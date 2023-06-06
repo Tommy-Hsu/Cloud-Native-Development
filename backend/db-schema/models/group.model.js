@@ -11,10 +11,10 @@ const groupSchema = new Schema({
     price: {type: Number, required: true},
     end_date: {type: String, required: true},
     least: {type: Number, required: true},
-    attends: {
+    attends: [{
         uid: {type: ObjectId, required: true},
         number: {type: Number, required: true},
-    },
+    }],
     image: {type: String, require: true},
 }, {
     timestamps: true,

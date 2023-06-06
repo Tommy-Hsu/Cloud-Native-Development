@@ -32,7 +32,7 @@ const CustomHeader = () => {
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="profile">
-        <Link to="/profile">
+        <Link to="/user/647e31e4240695a9c5744c95">
           個人頁面
         </Link>
       </Menu.Item>

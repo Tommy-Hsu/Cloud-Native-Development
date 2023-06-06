@@ -12,8 +12,8 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 
-    insertUser();
-    insertSession();
+    // insertUser();
+    // insertSession();
     insertGroup();
 })
 
@@ -47,20 +47,25 @@ function insertSession() {
 }
 
 function insertGroup() {
-    const title = "Test-Group-title";
+    const title = "Test-Group-title3";
     const leader = new mongoose.mongo.ObjectId();
     const type = Number(0);
     const category = Number(0);
-    const descript = "Test-Group-descript";
+    const descript = "Test-Group-descript3";
     const price = Number(0);
-    const end_date = "[Year][Month][Day]";
+    const end_date = "[Year][Month][Day]3";
     const least = Number(0);
-    const attends = {
-        "uid": new mongoose.mongo.ObjectId(),
-        "number": Number(0),
+    const attend1 = {
+        uid: new mongoose.mongo.ObjectId(),
+        number: Number(0),
     };
-    const image = "Test-Image";
+    const attend2 = {
+        uid: new mongoose.mongo.ObjectId(),
+        number: Number(0)
+    };
+    const attends = [attend1, attend2];
 
+    const image = "Test-Image";
     const newGroup = new Group({
         title,
         leader,

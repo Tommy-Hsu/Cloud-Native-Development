@@ -23,7 +23,8 @@ jobs:
     - name: Test with unittest 
       run: |
         cd backend/user-signupin-server
-        python3 -m unittest StudentsTest.py
+        source .env
+        python3 -m unittest test.py
         
     - name: Test Coverage 
       run: |

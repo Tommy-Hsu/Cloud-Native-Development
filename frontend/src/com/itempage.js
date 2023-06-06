@@ -15,15 +15,15 @@ function Activity(props) {
   ];
 
   return(
-    <Content style={{ width: '60%', margin: '0 auto' }}>
-    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-        <div style={{ width: '40%', marginRight: '2rem' }}>
-            <div style={{ height: '300px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-            <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt="product-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/>
+    <Content style={{ width: '80%', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+            <div style={{ width: '40%', marginRight: '2rem' }}>
+              <div style={{ height: '420px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt="product-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/>
+              </div>
             </div>
-        </div>
-        <div style={{ width: '30%' }}>
-            <div style={{ marginBottom: '1rem' }}>
+            <div style={{ width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div style={{ marginBottom: '1rem' }}>
             <h2>{types[props.activity.type]}</h2>
             <p>
                 {/* 提案人：<Link to={product.proposerLink}>{props.activity.leader}</Link> */}
@@ -49,30 +49,26 @@ function Activity(props) {
                 }} />
                 <p>剩餘時間：{props.activity.end_date}</p>
             </div>
+            <Affix offsetTop={0}>
+              <a href="" onClick={() => props.joinActivity(props.activity._id)}>點擊加入</a>
+            </Affix>
         </div>
     </div>
             
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-    <div style={{ width: '70%' }}>
-        <Tabs defaultActiveKey="1">
-        <TabPane tab="商品介绍" key="1">
-            <p>{props.activity.descript}</p>
-        </TabPane>
-        <TabPane tab="評論回復" key="2">
-            {comments.map((comment, index) => (
-            <p key={index}><b>{comment.title}:</b> {comment.comment}</p>
-            ))}
-        </TabPane>
-        </Tabs>
-    </div>
-    <div style={{ width: '30%' }}>
-        <Affix offsetTop={0}>
-        <Button type="primary" style={{ marginBottom: '1rem' }}>
-              <a href="" onClick={() => props.joinActivity(props.activity._id)}>點擊加入</a>
-          </Button>
-        </Affix>
-    </div>
-    </div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '70%' }}>
+              <Tabs defaultActiveKey="1" centered>
+                <TabPane tab="商品介绍" key="1">
+                  <p>這裡是商品介绍...</p>
+                </TabPane>
+                <TabPane tab="評論回復" key="2">
+                  {comments.map((comment, index) => (
+                    <p key={index}><b>{comment.title}:</b> {comment.comment}</p>
+                  ))}
+                </TabPane>
+              </Tabs>
+            </div>
+          </div>
     </Content>
   );
 }
@@ -127,72 +123,10 @@ export default class UserGroupList extends Component {
   render() {
     return (
         <Router>
-          <Layout>
+          <Layout style={{ background: 'white' }}>
             {this.activityList()}
           </Layout>
         </Router>
     )
   }
 }
-// return (
-//     <Router>
-//       <Layout>
-//         <Content style={{ width: '60%', margin: '0 auto' }}>
-//           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-//             <div style={{ width: '40%', marginRight: '2rem' }}>
-//               <div style={{ height: '300px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-//                 <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}/>
-//               </div>
-//             </div>
-//             <div style={{ width: '30%' }}>
-//               <div style={{ marginBottom: '1rem' }}>
-//                 <h2>{product.category}</h2>
-//                 <p>
-//                   提案人：<Link to={product.proposerLink}>{product.proposer}</Link>
-//                 </p>
-//               </div>
-//               <div style={{ marginBottom: '1rem' }}>
-//                 <h1>{product.name}</h1>
-//                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-//                   <div>
-//                     <h3>目標人数：{product.targetCount}</h3>
-//                     <h3>目前人数：{product.purchaseCount}</h3>
-//                   </div>
-//                   <div>
-//                     <h2>原價：{product.originalPrice}</h2>
-//                     <h2>現價：{product.currentPrice}</h2>
-//                   </div>
-//                 </div>
-//                 <Progress percent={(product.purchaseCount / product.targetCount) * 100}
-//                 status="active"
-//                 strokeColor={{
-//                   from: '#108ee9',
-//                   to: '#87d068',
-//                 }} />
-//                 <p>剩餘時間：{product.remainingTime}</p>
-//               </div>
-//             </div>
-//           </div>
-//           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-//             <div style={{ width: '70%' }}>
-//               <Tabs defaultActiveKey="1">
-//                 <TabPane tab="商品介绍" key="1">
-//                   <p>這裡是商品介绍...</p>
-//                 </TabPane>
-//                 <TabPane tab="評論回復" key="2">
-//                   {comments.map((comment, index) => (
-//                     <p key={index}><b>{comment.title}:</b> {comment.comment}</p>
-//                   ))}
-//                 </TabPane>
-//               </Tabs>
-//             </div>
-//             <div style={{ width: '30%' }}>
-//               <Affix offsetTop={0}>
-//                 <Button type="primary" style={{ marginBottom: '1rem' }}>點擊加入</Button>
-//               </Affix>
-//             </div>
-//           </div>
-//         </Content>
-//       </Layout>
-//     </Router>
-// )

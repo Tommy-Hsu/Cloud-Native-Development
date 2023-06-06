@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, DatePicker, Button, InputNumber } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
-
+import { reactLocalStorage } from 'reactjs-localstorage';
 const { Option } = Select;
+
 
 const categories = ['商品',"揪團"];
 const initialValues = {
@@ -20,13 +21,17 @@ const initialValues = {
 
 const MyForm = () => {
   const [form] = Form.useForm();
+  const [session, setSession] = useState(null);
 
+  useEffect(() => {
+    setSession(reactLocalStorage.get('session'));
+  }, []);
   const onFinish = async (values) => {
     const type = parseInt(values.type, 10);
     const category = values.category;
     const price = parseInt(values.price, 10);
     const least = parseInt(values.least, 10);
-    const session = values.session;
+    // const session = values.session;
     const image = values.image;
     const end_date = moment(values.end_date).format('YYYY-MM-DD');
 
@@ -74,12 +79,12 @@ const MyForm = () => {
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
     >
-      <Form.Item
+      {/* <Form.Item
         label="Session"
         name="session"
       >
         <Input />
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item
         label="名稱"
@@ -111,8 +116,7 @@ const MyForm = () => {
         rules={[{ required: true, message: '請選擇類別' }]}
       >
         <Select placeholder="請選擇類別">
-          <Option v
-          alue="0">遊戲</Option>
+          <Option value="0">遊戲</Option>
           <Option value="1">戶外</Option>
           <Option value="2">時尚</Option>
           <Option value="3">教育</Option>

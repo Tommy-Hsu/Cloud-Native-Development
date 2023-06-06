@@ -114,6 +114,7 @@ const MyForm = () => {
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
     >
+      <img src="https://i.imgur.com/H2pa2Vz.jpeg" alt="Form Illustration" style={{ display: 'block', marginBottom: '20px' }} />
       <Form.Item
         label="名稱"
         name="title"

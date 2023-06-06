@@ -36,7 +36,7 @@ export default function Register() {
     <Row>
       <Col span={17}>
         <img
-          src="https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg"
+          src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="background"
           style={{ width: '100%', height: '100vh', objectFit: 'cover' }}
         />
@@ -52,7 +52,7 @@ export default function Register() {
               />
               <h2>Chilltan</h2>
             </Link>
-            <p>歡迎加入！让我们一起开始吧。</p>
+            <p>歡迎加入！一起揪團一起玩。</p>
           </div>
           <Form
             {...layout}
@@ -70,23 +70,23 @@ export default function Register() {
 
             <Form.Item
               name="email"
-              rules={[{ required: true, message: '請輸入电子信箱!' }, { type: 'email', message: '請輸入有效的电子信箱!' }]}
+              rules={[{ required: true, message: '請輸入Email!' }, { type: 'email', message: '請輸入有效的电子信箱!' }]}
             >
-              <Input prefix={<MailOutlined />} placeholder="电子信箱" />
+              <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
 
             <Form.Item
               name="password"
               rules={[{ required: true, message: '請輸入密碼!' }]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="密碼" />
+              <Input.Password prefix={<LockOutlined />} placeholder="Password" />
             </Form.Item>
 
             <Form.Item
               name="confirmPassword"
               rules={[{ required: true, message: '請再次輸入密碼!' }]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="確認密碼" />
+              <Input.Password prefix={<LockOutlined />} placeholder="ConfirmPassword" />
             </Form.Item>
 
             <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>

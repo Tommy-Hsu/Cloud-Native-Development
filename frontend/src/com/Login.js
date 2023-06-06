@@ -58,7 +58,7 @@ export default function Login() {
     <Row>
       <Col span={17}>
         <img
-          src="https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg"
+          src="https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&w=600"
           alt="background"
           style={{ width: '100%', height: '100vh', objectFit: 'cover' }}
         />
@@ -112,7 +112,7 @@ export default function Login() {
 
             <Form.Item {...tailLayout}>
               <Button type="primary" htmlType="submit" block>
-                登入
+                  登入
               </Button>
             </Form.Item>
 

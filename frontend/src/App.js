@@ -4,12 +4,13 @@ import CustomCard from './com/Card';
 import Navbar from './com/Navbar';
 import Login from './com/Login';
 import Register from './com/Register';
-import Carousel from './com/Carousel';
+import Home from './com/Home';
 import Footer from './com/footer';
 // import Detailpage from './com/newpage'
 import Detailpage from './com/itempage'
 import User from './com/user'
 import Create from './com/create'
+//import Search from './com/Search'
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 function App() {
@@ -26,11 +27,15 @@ function App() {
           <Route path="/" exact>
             <div className="home">
               <Navbar />
-              <Carousel />
-              <CustomCard data={cardData} /> 
-              <Footer />      
+                <Home />   
             </div>
           </Route>
+
+          {/* <Route path="/search">
+            <div className='search'>
+              <Search />
+            </div>
+          </Route> */}
 
           <Route path="/register">
             <div className='register'>

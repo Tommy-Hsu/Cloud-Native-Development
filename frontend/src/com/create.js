@@ -126,7 +126,7 @@ const MyForm = () => {
         marginRight: 'auto',
         width: '100%', // Adjust as needed
         height: '500px', // Adjust as needed
-        objectFit: 'cover' // Cover to prevent distortion 
+        objectFit: 'contain' // Cover to prevent distortion 
         }} />
       <Form.Item
         label="名稱"

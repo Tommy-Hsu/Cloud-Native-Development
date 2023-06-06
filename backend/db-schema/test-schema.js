@@ -47,29 +47,27 @@ function insertSession() {
 }
 
 function insertGroup() {
-    const title = "Group-title2";
+    const title = "Test Group Title Final";
     const leader = new mongoose.mongo.ObjectId();
     const type = Number(0);
     const category = Number(0);
-    const descript = "Group-descript2";
+    const descript = "Test Group Descript Final";
     const price = Number(0);
-    const end_date = "[Year][Month][Day]2";
+    const end_date = "[Year][Month][Day] Final";
     const least = Number(0);
     const attend1 = {
         uid: new mongoose.mongo.ObjectId(),
-        number: Number(0),
     };
     const attend2 = {
         uid: new mongoose.mongo.ObjectId(),
-        number: Number(0)
     };
     const attend3 = {
         uid: new mongoose.mongo.ObjectId(),
-        number: Number(0)
     };
     const attends = [attend1, attend2, attend3];
+    const number = Number(3);
 
-    const image = "Test-Image";
+    const image = "Test Image Final";
     const newGroup = new Group({
         title,
         leader,
@@ -80,6 +78,7 @@ function insertGroup() {
         end_date,
         least,
         attends,
+        number,
         image
     });
 

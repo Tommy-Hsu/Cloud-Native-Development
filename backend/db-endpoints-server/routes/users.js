@@ -48,9 +48,18 @@ router.route('/').post((req, res) => {
     const uid = new mongoose.Types.ObjectId(query_uid);
     console.log(`[db-endpoint-server] Get JOIN request - gid ${gid}, uid ${uid}`);
 
-    Group.findOneAndUpdate({"_id": gid},
-    {"$push": {"attends": {"uid": uid, "number": 0}}})
-    .then(() => res.json('Group Joined!'))
+    Group.findOneAndUpdate(
+        {"_id": gid},
+        { $inc: { "number": 1} })
+    .then(() => {
+        Group.findOneAndUpdate(
+            {"_id": gid},
+            {"$push": {"attends": {"uid": uid}}})
+        .then(() => {
+            res.json('[Join] Group joined!')
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -66,9 +75,18 @@ router.route('/').delete((req, res) => {
     console.log(`[db-endpoint-server] Get DELETE request - [gid] ${gid}, [uid] ${uid}, [deletejoin] ${delete_joined}`);
 
     if (delete_joined == "true") {
-        Group.findOneAndUpdate({"_id": gid}, 
-        {$pull: {"attends": {"uid": uid,}}}, {new: true})
-        .then(() => res.json('[Join] Group deleted!'))
+        Group.findOneAndUpdate(
+            {"_id": gid}, 
+            { $inc: { "number": -1} })
+        .then(() => {
+            Group.findOneAndUpdate(
+                {"_id": gid},
+                {$pull: {"attends": {"uid": uid,}}}, {new: true})
+            .then(() => {
+                res.json('[Join] Group deleted!')
+            })
+            .catch(err => res.status(400).json('Error: ' + err));
+        })
         .catch(err => res.status(400).json('Error: ' + err));
     } else {
         Group.findByIdAndDelete(gid)

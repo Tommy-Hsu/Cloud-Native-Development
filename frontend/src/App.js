@@ -10,6 +10,7 @@ import Footer from './com/footer';
 import Detailpage from './com/itempage'
 import User from './com/user'
 import Create from './com/create'
+import Search from './com/Search'
 // <<<<<<< HEAD
 // import Search_card from './com/search_Card'
 // =======
@@ -72,6 +73,13 @@ function App() {
             <div className='Detailpage'>
             <Navbar />
               <Detailpage />
+            </div>
+          </Route>
+          
+          <Route path="/search">
+            <div className='search'>
+              <Navbar />
+                <Search />
             </div>
           </Route>
 

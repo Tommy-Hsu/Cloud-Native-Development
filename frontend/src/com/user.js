@@ -26,12 +26,12 @@ function Activity(props) {
 
   return(
     <Card title={props.activity.title} style={cardStyle}>
-    <ul style={listStyle}>
-        <li style={listItemStyle}>提案人：{props.activity.leader}</li>
+    <ul style={listStyle}>       
         <li style={listItemStyle}>活動種類: {types[props.activity.type]}</li>
-        <li style={listItemStyle}>活動類別: {categories[props.activity.category]}</li>
+        <li style={listItemStyle}>活動類別: {categories[props.activity.category]}</li>    
         <li style={listItemStyle}>活動描述: {props.activity.descript}</li>
         <li style={listItemStyle}>剩餘時間: {props.activity.end_date}</li>
+        {/* <li style={listItemStyle}>提案人：{props.activity.number}</li> */}
         <Button>
             <a href="" onClick={() => props.deleteActivity(props.activity._id, props.delete_joined)}>Delete</a>
         </Button>

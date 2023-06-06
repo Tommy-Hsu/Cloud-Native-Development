@@ -51,7 +51,10 @@ function Activity(props) {
             </div>
             <Affix offsetTop={0}>
                 
-              <Button onClick={() => props.joinActivity(props.activity._id)}>
+              <Button 
+                type="primary" style={{ marginBottom: '1rem', width: '100%' }}
+                onClick={() => props.joinActivity(props.activity._id)}
+              >
                 點擊加入
               </Button>
             </Affix>

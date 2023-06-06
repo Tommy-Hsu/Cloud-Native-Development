@@ -35,67 +35,6 @@ const CustomCard = () => {
     }catch(error){
       console.error('Failed to fetch events',error);
     }
-    //   setCardData(response.data);
-    // }catch(error){
-    //   console.error('Failed to fetch events',error);
-    // }
-    // Simulating API call to fetch card data from backend
-    // Replace with your actual API call
-    // const dataFromBackend = response.data.map(event =>({
-    //   title: event.title,
-    //   description: event.description,
-    //   type: event.type,
-    //   category: event.category,
-    //   leader: event.leader,
-    //   price: event.price,
-    //   end_date: event.end_date,
-    //   least: event.least,
-    // }))
-      // {
-      //   title: '玩完九成都會醉，明天忘記你是誰 - The Drunk Land 醉後大富翁',
-      //   description: 'www.instagram.com',
-      //   coverImage: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-      //   productURL: '/detail',
-      //   targetCount: 100,
-      //   purchaseCount: 50,
-      // },
-      // {
-      //   title: '玩完九成都會醉，明天忘記你是誰 - The Drunk Land 醉後大富翁',
-      //   description: 'www.instagram.com',
-      //   coverImage: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-      //   productURL: '/detail',
-      //   targetCount: 100,
-      //   purchaseCount: 50,
-      // },
-      // {
-      //   title: '玩完九成都會醉，明天忘記你是誰 - The Drunk Land 醉後大富翁',
-      //   description: 'www.instagram.com',
-      //   coverImage: 'https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg',
-      //   productURL: '/detail',
-      //   targetCount: 100,
-      //   purchaseCount: 50,
-      // },
-      // {
-      //   title: '玩完九成都會醉，明天忘記你是誰 - The Drunk Land 醉後大富翁',
-      //   description: 'www.instagram.com',
-      //   coverImage: 'https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg',
-      //   productURL: '/product/1',
-      //   targetCount: 100,
-      //   purchaseCount: 50,
-      // },{
-      //   title: '玩完九成都會醉，明天忘記你是誰 - The Drunk Land 醉後大富翁',
-      //   description: 'www.instagram.com',
-      //   coverImage: 'https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg',
-      //   productURL: '/product/1',
-      //   targetCount: 100,
-      //   purchaseCount: 50,
-      // },
-      // Add more card data as needed
-
-  //   setCardData(dataFromBackend);
-  // }catch(error){
-  //   console.error('Failed to fetch events',error);
-  // }
   };
   useEffect(() => {
     fetchData();
@@ -149,8 +88,8 @@ const CustomCard = () => {
           style={{ width: 120 }}
           onChange={handleChange}
           options={[
-            { value: 'product', label: '商品' },
-            { value: 'event', label: '揪團活動' }
+            { value: '0', label: '團鳩' },
+            { value: '1', label: '團購' }
           ]}
         />
         <Space style={{ width: 60, justifyContent: 'center' }}> 
@@ -161,12 +100,12 @@ const CustomCard = () => {
           style={{ width: 120, }}
           onChange={handleChange}
           options={[
-            { value: 'outdoor', label: '戶外' },
-            { value: 'game', label: '遊戲' },
-            { value: 'sport', label: '運動' },
-            { value: 'music', label: '音樂' },
-            { value: 'act', label: '藝術' },
-            { value: 'others', label: '其他' }
+            { value: '0', label: '遊戲' },
+            { value: '1', label: '戶外' },
+            { value: '2', label: '時尚' },
+            { value: '3', label: '教育' },
+            { value: '4', label: '家庭' },
+            { value: '5', label: '文創' }
           ]}
         />
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>

@@ -13,11 +13,50 @@ const contentStyle = {
   textAlign: 'center',
   margin: 'auto',
   backgroundRepeat: 'no-repeat',
-  backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
+  backgroundImage: `url('https://i.imgur.com/zYsCYkW.jpeg')`,
+  // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
 };
-
+const contentStyle1 = {
+  width: '70%',
+  height: '700px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  margin: 'auto',
+  backgroundRepeat: 'no-repeat',
+  backgroundImage: `url('https://i.imgur.com/YlLKzMS.jpg')`,
+  // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+};
+const contentStyle2 = {
+  width: '70%',
+  height: '700px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  margin: 'auto',
+  backgroundRepeat: 'no-repeat',
+  backgroundImage: `url('https://i.imgur.com/fQTALGU.jpeg')`,
+  // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+};
+const contentStyle3 = {
+  width: '70%',
+  height: '700px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  margin: 'auto',
+  backgroundRepeat: 'no-repeat',
+  backgroundImage: `url('https://i.imgur.com/hTpmDQc.png')`,
+  // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+};
 const cardData = [
   // Card data here
 ];
@@ -42,6 +81,7 @@ const Home = () => {
           price: group.price,
           end_date: group.end_date,
           least: group.least,
+          img: group.img,
         }));
         setCardData(dataFromBackend);
         console.log(cardData);
@@ -104,13 +144,13 @@ const Home = () => {
           <h3 style={contentStyle}></h3>
         </div>
         <div>
-          <h3 style={contentStyle}></h3>
+          <h3 style={contentStyle1}></h3>
         </div>
         <div>
-          <h3 style={contentStyle}></h3>
+          <h3 style={contentStyle2}></h3>
         </div>
         <div>
-          <h3 style={contentStyle}></h3>
+          <h3 style={contentStyle3}></h3>
         </div>
       </Carousel>
 

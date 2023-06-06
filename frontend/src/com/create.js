@@ -3,8 +3,10 @@ import { Form, Input, Select, DatePicker, Button, InputNumber, Upload } from 'an
 import moment from 'moment';
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
-
+import { reactLocalStorage } from 'reactjs-localstorage';
 const { Option } = Select;
+
+
 
 const categories = ['商品', '揪團'];
 const initialValues = {
@@ -23,11 +25,13 @@ const MyForm = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+  const [session, setSession] = useState(null)
 
   useEffect(() => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      form.setFieldsValue({ session });
+    const savedSession = reactLocalStorage.get('session');
+    if (savedSession) {
+      form.setFieldsValue({ session: savedSession });
+      setSession(savedSession);
     }
   }, []);
 
@@ -59,7 +63,7 @@ const MyForm = () => {
     const category = values.category;
     const price = parseInt(values.price, 10);
     const least = parseInt(values.least, 10);
-    const session = values.session;
+    // const session = values.session;
     const image = values.image;
     const end_date = moment(values.end_date).format('YYYY-MM-DD');
 
@@ -171,8 +175,16 @@ const MyForm = () => {
       >
         <Input.TextArea rows={4} />
       </Form.Item>
-
+      
       <Form.Item
+        label="圖片"
+        name="image"
+        rules={[{ required: true, message: '請輸入圖片路徑' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      {/* <Form.Item
         label="圖片"
         name="image"
         rules={[{ required: true, message: '請上傳圖片' }]}
@@ -191,7 +203,7 @@ const MyForm = () => {
             </Button>
           )}
         </Upload>
-      </Form.Item>
+      </Form.Item> */}
       {/* 其他表单项 */}
       <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
         <Button type="primary" htmlType="submit">

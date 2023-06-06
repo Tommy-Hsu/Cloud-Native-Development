@@ -27,10 +27,10 @@ function Activity(props) {
             <div style={{ width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div style={{ marginBottom: '1rem' }}>
             <h2>{types[props.activity.type]}</h2>
-            <p>
+            {/* <p> */}
                 {/* 提案人：<Link to={product.proposerLink}>{props.activity.leader}</Link> */}
-                <h2>提案人： {props.activity.leader}</h2>
-            </p>
+                {/* <h2>提案人： {props.activity.leader}</h2>
+            </p> */}
             </div>
             <div style={{ marginBottom: '1rem' }}>
                 <h1>{props.activity.title}</h1>
@@ -68,7 +68,7 @@ function Activity(props) {
             <div style={{ width: '70%' }}>
               <Tabs defaultActiveKey="1" centered>
                 <TabPane tab="商品介绍" key="1">
-                  <p>這裡是商品介绍...</p>
+                  <p>{props.activity.descript}</p>
                 </TabPane>
                 <TabPane tab="評論回復" key="2">
                   {comments.map((comment, index) => (

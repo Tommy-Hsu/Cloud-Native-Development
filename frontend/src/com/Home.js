@@ -81,7 +81,7 @@ const Home = () => {
           gid: group._id,
           leader: group.leader,
           title: group.title,
-          description: group.description,
+          description: group.descript,
           type: group.type,
           category: group.category,
           // leader: group.leader,
@@ -162,7 +162,7 @@ const Home = () => {
         </div>
       </Carousel>
 
-      <Select
+      {/* <Select
         defaultValue="商品"
         style={{ width: 120 }}
         onChange={handleChange}
@@ -179,14 +179,14 @@ const Home = () => {
         style={{ width: 120 }}
         onChange={handleChange}
         options={[
-          { value: 'outdoor', label: '戶外' },
-          { value: 'game', label: '遊戲' },
-          { value: 'sport', label: '運動' },
-          { value: 'music', label: '音樂' },
-          { value: 'act', label: '藝術' },
-          { value: 'others', label: '其他' },
+          { value: '0', label: '戶外' },
+          { value: '1', label: '遊戲' },
+          { value: '2', label: '運動' },
+          { value: '3', label: '音樂' },
+          { value: '4', label: '藝術' },
+          { value: '5', label: '其他' },
         ]}
-      />
+      /> */}
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
         <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>

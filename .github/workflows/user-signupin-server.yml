@@ -4,6 +4,8 @@ on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
     strategy:
       fail-fast: false
       matrix:

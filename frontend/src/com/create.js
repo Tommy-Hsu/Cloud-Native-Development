@@ -111,8 +111,7 @@ const MyForm = () => {
         rules={[{ required: true, message: '請選擇類別' }]}
       >
         <Select placeholder="請選擇類別">
-          <Option v
-          alue="0">遊戲</Option>
+          <Option value="0">遊戲</Option>
           <Option value="1">戶外</Option>
           <Option value="2">時尚</Option>
           <Option value="3">教育</Option>

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Select, DatePicker, Button, InputNumber } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 
 const { Option } = Select;
 
-const categories = ['商品',"揪團"];
+const categories = ['商品', '揪團'];
 const initialValues = {
   session: '',
   type: undefined,
@@ -20,6 +20,13 @@ const initialValues = {
 
 const MyForm = () => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      form.setFieldsValue({ session });
+    }
+  }, []);
 
   const onFinish = async (values) => {
     const type = parseInt(values.type, 10);
@@ -43,7 +50,6 @@ const MyForm = () => {
     });
 
     try {
-      // 执行POST请求
       const response = await axios.post('http://localhost:8080/create', {
         session,
         type,
@@ -57,14 +63,11 @@ const MyForm = () => {
       });
 
       console.log('POST请求成功', response.data);
-      // 在这里可以处理请求成功后的逻辑
-
     } catch (error) {
       console.error('POST请求失败', error);
-      // 在这里可以处理请求失败后的逻辑
     }
   };
-
+  
   return (
     <Form
       form={form}

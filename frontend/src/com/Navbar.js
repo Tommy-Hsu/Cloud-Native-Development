@@ -1,30 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Input, Button, Dropdown, Avatar, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage'; // 导入reactjs-localstorage库
 
 const { Header } = Layout;
 
 const CustomHeader = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const history = useHistory(); // 使用useHistory来进行页面跳转
+  const [loggedIn, setLoggedIn] = useState(false); // 登录状态初始为false
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // 从后端获取用户数据的逻辑
-    // 假设从后端获取的数据包含 "hoverText" 和 "userIcon" 字段
+    const session = reactLocalStorage.get('session'); // 从本地缓存中获取session信息
 
-    // 模拟从后端获取的数据
-    const fakeUserData = {
-      hoverText: 'Hover me',
-      userIcon: <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"/>,
+    if (session) {
+      // 如果存在session信息，则将登录状态设置为true
+      setLoggedIn(true);
+      // 从后端获取用户数据的逻辑
+      // 假设从后端获取的数据包含 "hoverText" 和 "userIcon" 字段
+
+      // 模拟从后端获取的数据
+      const fakeUserData = {
+        hoverText: 'Hover me',
+        userIcon: <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"/>,
+      };
+
+      setUserData(fakeUserData);
+    } else {
+      setLoggedIn(false);
+    }
+
+    // 侦听本地缓存变化的逻辑
+    const handleLocalStorageChange = () => {
+      const updatedSession = reactLocalStorage.get('session');
+
+      if (updatedSession) {
+        setLoggedIn(true);
+        // 更新用户数据的逻辑
+      } else {
+        setLoggedIn(false);
+        // 清除用户数据的逻辑
+      }
     };
 
-    setUserData(fakeUserData);
+    window.addEventListener('storage', handleLocalStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleLocalStorageChange);
+    };
   }, []);
 
   const handleMenuClick = ({ key }) => {
     if (key === 'logout') {
+      // 清除本地缓存中的session信息
+      reactLocalStorage.remove('session');
       setLoggedIn(false);
+      history.push('/'); // 登出后跳转到登录页面
     }
     // 处理其他菜单项的点击事件
   };

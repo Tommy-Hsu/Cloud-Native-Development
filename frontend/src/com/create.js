@@ -28,9 +28,10 @@ const MyForm = () => {
   const [session, setSession] = useState(null)
 
   useEffect(() => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      form.setFieldsValue({ session });
+    const savedSession = reactLocalStorage.get('session');
+    if (savedSession) {
+      form.setFieldsValue({ session: savedSession });
+      setSession(savedSession);
     }
   }, []);
 

@@ -24,7 +24,6 @@ jobs:
     - name: Install dependencies
       run: |
         cd backend/user-signupin-server
-        pwd
         ls -al
         cat .env
         source .env

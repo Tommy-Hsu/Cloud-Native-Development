@@ -1,5 +1,5 @@
 import { Layout, Tabs, Affix, Avatar, Card, List, Button, Progress } from 'antd';
-import React, {Component} from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -81,60 +81,109 @@ function Activity(props) {
     </Content>
   );
 }
+const UserGroupList = () => {
+  const history = useHistory();  // 添加這行
 
-export default class UserGroupList extends Component {
-  constructor(pros) {
-      super(pros);
-      this.activityList = this.activityList.bind(this);
-      this.joinActivity = this.joinActivity.bind(this);
-      
-      this.state = {
-        activities: [],
-        uid: 0,             // 紀錄當前的 userid，之後加入活動要使用
-      };
+  const [activities, setActivities] = useState([]);
+  const [uid, setUid] = useState(0);
+
+  useEffect(() => {
+    let arr = window.location.href.split("/");
+    arr = arr[arr.length - 1].replace("?", "");
+    arr = arr.split("&");
+
+    const ggid = arr[0].replace("gid=", "");
+    const uuid = arr[1].replace("uid=", "");
+
+    axios.get('http://localhost:5000/user/?gid=' + ggid)
+      .then(response => {
+        setActivities(response.data);
+        setUid(uuid);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, []);
+
+  const joinActivity = (gid) => {
+    console.log(`[frontend] JOIN target - gid ${gid}, uid ${uid}`);
+    axios.post('http://localhost:5000/user/?gid=' + gid + '&uid=' + uid)
+      .then(res => {
+        console.log(res.data);
+        history.push('/');  // 添加這行
+      })
   }
 
-  componentDidMount() {
-      let arr = window.location.href.split("/");
-      arr = arr[arr.length-1].replace("?", "");
-      arr = arr.split("&");
-
-      const ggid = arr[0].replace("gid=", "");
-      const uuid = arr[1].replace("uid=", "");
-
-      // 透過 url 解析出來的 group id (gid) 去 db-endpoint-server 找對應的活動資料
-      axios.get('http://localhost:5000/user/?gid=' + ggid)
-          .then(response => {
-            this.setState({
-                activities: response.data,
-                uid: uuid,
-            })
-          })
-          .catch(err => {
-              console.log(err);
-          })
-  }
-
-  // 把當前 item 的 group id (gid) 跟 當前瀏覽的 user id (uid) 拿出來，傳給 db-endpoint-server
-  joinActivity(gid) {
-    console.log(`[frontend] JOIN target - gid ${gid}, uid ${this.state.uid}`);
-    axios.post('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
-        .then(res => console.log(res.data))
-  }
-
-  activityList() {
-    return this.state.activities.map(currentActivity => {
-        return <Activity activity={currentActivity} joinActivity={this.joinActivity} key={currentActivity._id} />;
+  const activityList = () => {
+    return activities.map(currentActivity => {
+      return <Activity activity={currentActivity} joinActivity={joinActivity} key={currentActivity._id} />;
     })
+  }
+
+  return (
+    <Router>
+      <Layout style={{ background: 'white' }}>
+        {activityList()}
+      </Layout>
+    </Router>
+  )
 }
 
-  render() {
-    return (
-        <Router>
-          <Layout style={{ background: 'white' }}>
-            {this.activityList()}
-          </Layout>
-        </Router>
-    )
-  }
-}
+export default UserGroupList;
+// export default class UserGroupList extends Component {
+//   const history = useHistory();
+//   constructor(pros) {
+//       super(pros);
+//       this.activityList = this.activityList.bind(this);
+//       this.joinActivity = this.joinActivity.bind(this);
+      
+//       this.state = {
+//         activities: [],
+//         uid: 0,             // 紀錄當前的 userid，之後加入活動要使用
+//       };
+//   }
+
+//   componentDidMount() {
+//       let arr = window.location.href.split("/");
+//       arr = arr[arr.length-1].replace("?", "");
+//       arr = arr.split("&");
+
+//       const ggid = arr[0].replace("gid=", "");
+//       const uuid = arr[1].replace("uid=", "");
+
+//       // 透過 url 解析出來的 group id (gid) 去 db-endpoint-server 找對應的活動資料
+//       axios.get('http://localhost:5000/user/?gid=' + ggid)
+//           .then(response => {
+//             this.setState({
+//                 activities: response.data,
+//                 uid: uuid,
+//             })
+//           })
+//           .catch(err => {
+//               console.log(err);
+//           })
+//   }
+
+//   // 把當前 item 的 group id (gid) 跟 當前瀏覽的 user id (uid) 拿出來，傳給 db-endpoint-server
+//   joinActivity(gid) {
+//     console.log(`[frontend] JOIN target - gid ${gid}, uid ${this.state.uid}`);
+//     axios.post('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
+//         .then(res => console.log(res.data))
+//   }
+
+//   activityList() {
+//     return this.state.activities.map(currentActivity => {
+//         return <Activity activity={currentActivity} joinActivity={this.joinActivity} key={currentActivity._id} />;
+//     })
+// }
+
+//   render() {
+//     return (
+//         <Router>
+//           <Layout style={{ background: 'white' }}>
+//             {this.activityList()}
+//           </Layout>
+//         </Router>
+//     )
+//   }
+// }

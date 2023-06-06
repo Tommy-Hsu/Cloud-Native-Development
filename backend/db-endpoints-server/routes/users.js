@@ -20,8 +20,20 @@ router.route('/').get((req, res) => {
         const uid = new mongoose.Types.ObjectId(query_uid);
         console.log(`[db-endpoint-server] Get QUERY uid ${uid}`);
 
-        Group.find({"attends.uid": uid})
-        .then(groups => res.json(groups))
+        // 找自己發起的活動
+        Group.find({"leader": uid})
+        .then(hostgroups => {
+
+            // 找自己參加的活動
+            Group.find({"attends.uid": uid})
+            .then(joingroups => {
+                res.json({
+                    hostgroups,
+                    joingroups
+                })
+            })
+            .catch(err => res.status(400).json('Error: ' + err));
+        })
         .catch(err => res.status(400).json('Error: ' + err));
     }
 });
@@ -47,15 +59,23 @@ router.route('/').post((req, res) => {
 router.route('/').delete((req, res) => {
     const query_gid = req.query.gid;
     const query_uid = req.query.uid;
+    const delete_joined = req.query.deletejoin;
 
     const gid = new mongoose.Types.ObjectId(query_gid);
     const uid = new mongoose.Types.ObjectId(query_uid);
-    console.log(`[db-endpoint-server] Get DELETE request - gid ${gid}, uid ${uid}`);
+    console.log(`[db-endpoint-server] Get DELETE request - [gid] ${gid}, [uid] ${uid}, [deletejoin] ${delete_joined}`);
 
-    Group.findOneAndUpdate({"_id": gid}, 
-    {$pull: {"attends": {"uid": uid,}}}, {new: true})
-    .then(() => res.json('Group deleted!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+    if (delete_joined == "true") {
+        Group.findOneAndUpdate({"_id": gid}, 
+        {$pull: {"attends": {"uid": uid,}}}, {new: true})
+        .then(() => res.json('[Join] Group deleted!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    } else {
+        Group.findByIdAndDelete(gid)
+        .then(() => res.json('[Host] Group deleted!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    }
+    
 });
 
 module.exports = router;

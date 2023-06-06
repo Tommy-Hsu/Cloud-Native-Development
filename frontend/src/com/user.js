@@ -17,7 +17,7 @@ function Activity(props) {
           <li>活動描述: {props.activity.descript}</li>
           <li>剩餘時間: {props.activity.end_date}</li>
           <Button>
-              <a href="" onClick={() => props.deleteActivity(props.activity._id)}>Delete</a>
+              <a href="" onClick={() => props.deleteActivity(props.activity._id, props.delete_joined)}>Delete</a>
           </Button>
       </ul>
     </Card>
@@ -28,11 +28,13 @@ export default class UserGroupList extends Component {
   constructor(pros) {
       super(pros);
 
-      this.activityList = this.activityList.bind(this);
+      this.host_activityList = this.host_activityList.bind(this);
+      this.join_activityList = this.join_activityList.bind(this);
       this.deleteActivity = this.deleteActivity.bind(this);
       
       this.state = {
-          activities: [],
+          host_activities: [],
+          join_activities: [],
           uid: 0,
       };
   }
@@ -45,7 +47,8 @@ export default class UserGroupList extends Component {
       axios.get('http://localhost:5000/user/?uid=' + uuid)
           .then(response => {
               this.setState({
-                activities: response.data,
+                host_activities: response.data.hostgroups,
+                join_activities: response.data.joingroups,
                 uid: uuid,
               });
           })
@@ -55,21 +58,34 @@ export default class UserGroupList extends Component {
   }
 
   // 把對應 item 的 group id (gid) 跟當前 user 的 user id (uid) 拿出來，傳給 db-endpoint-server
-  deleteActivity(gid) {
-    console.log(`[frontend] DELETE target - gid ${gid}, uid ${this.state.uid}`);
-    axios.delete('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid)
+  deleteActivity(gid, delete_joined=true) {
+    console.log(`[frontend] DELETE target - gid ${gid}, uid ${this.state.uid}, deletejoin ${delete_joined}`);
+    axios.delete('http://localhost:5000/user/?gid=' + gid + '&uid=' + this.state.uid + '&deletejoin=' + delete_joined)
         .then(res => console.log(res.data));
-    
-    this.setState({
-        activities: this.state.activities.filter(el => el._id !== gid)
-    })
+
+    if (delete_joined) {
+      this.setState({
+        join_activities: this.state.join_activities.filter(el => el._id !== gid)
+      })
+    } else {
+      console.log("delete host");
+      this.setState({
+        host_activities: this.state.host_activities.filter(el => el._id !== gid)
+      })
+    }
   }
 
-  activityList() {
-      return this.state.activities.map(currentActivity => {
-          return <Activity activity={currentActivity} deleteActivity={this.deleteActivity} key={currentActivity._id} />;
+  host_activityList() {
+      return this.state.host_activities.map(currentActivity => {
+          return <Activity activity={currentActivity} deleteActivity={this.deleteActivity} key={currentActivity._id} delete_joined={false}/>;
       })
   }
+
+  join_activityList() {
+    return this.state.join_activities.map(currentActivity => {
+        return <Activity activity={currentActivity} deleteActivity={this.deleteActivity} key={currentActivity._id} delete_joined={true}/>;
+    })
+}
 
   render() {
     // return (
@@ -102,7 +118,14 @@ export default class UserGroupList extends Component {
           </Breadcrumb>
           <div className="site-layout-content">
             <Avatar size={64} icon={<UserOutlined />} />
-              {this.activityList()}
+            <h2>發起的活動</h2>
+              {this.host_activityList()}
+          </div>
+          <br/>
+          <div className="site-layout-content">
+            <Avatar size={64} icon={<UserOutlined />} />
+            <h2>參加的活動</h2>
+              {this.join_activityList()}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>ChillTan</Footer>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Input, Button, Dropdown, Avatar, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 
 const { Header } = Layout;
 
 const CustomHeader = () => {
+  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(true);
   const [userData, setUserData] = useState({});
 

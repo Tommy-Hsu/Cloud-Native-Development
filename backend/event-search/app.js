@@ -1,6 +1,7 @@
 const express = require('express');
 const router = require('express').Router();
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -13,6 +14,7 @@ connection.once('open', () => {
 })
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 const eventSearch = require('./routes/event-search');

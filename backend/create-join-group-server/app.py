@@ -1,5 +1,6 @@
 import os
 import time
+import requests
 from loguru import logger
 
 from flask import Flask
@@ -72,7 +73,12 @@ class CreateGroup(Resource):
         return {"msg": 0}, 201
 
     def __IsTitleExist(self, title: str):
-        return db.groups.count_documents({"title": title}) > 0
+        res = requests.get(f"{os.environ.get('EVENT_SEARCH_API')}?title={title}")
+        isExist = False
+        for group in res.json():
+            isExist |= (group["title"] == title)
+        
+        return isExist
     
 
 class JoinGroup(Resource):

@@ -50,7 +50,13 @@ function Activity(props) {
                 <p>剩餘時間：{props.activity.end_date}</p>
             </div>
             <Affix offsetTop={0}>
-              <a href="" onClick={() => props.joinActivity(props.activity._id)}>點擊加入</a>
+                
+              <Button 
+                type="primary" style={{ marginBottom: '1rem', width: '100%' }}
+                onClick={() => props.joinActivity(props.activity._id)}
+              >
+                點擊加入
+              </Button>
             </Affix>
         </div>
     </div>

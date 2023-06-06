@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Input, Button, Dropdown, Avatar, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { Link,useHistory } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 const { Header } = Layout;
 
@@ -9,8 +10,16 @@ const CustomHeader = () => {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(true);
   const [userData, setUserData] = useState({});
-
+  const [saveSession, setSaveSession] = useState(null);
   useEffect(() => {
+    const session  = reactLocalStorage.get('session');
+    setSaveSession(session);
+    if(session){
+      setLoggedIn(true);
+      // console.log(saveSession)
+    }else{
+      setLoggedIn(false);
+    }
     // 从后端获取用户数据的逻辑
     // 假设从后端获取的数据包含 "hoverText" 和 "userIcon" 字段
 
@@ -33,7 +42,7 @@ const CustomHeader = () => {
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="profile">
-        <Link to="/user/?uid=647e31e4240695a9c5744c95">
+        <Link to={`/user/?uid=${saveSession}`}>
           個人頁面
         </Link>
       </Menu.Item>

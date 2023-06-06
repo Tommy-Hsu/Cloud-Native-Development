@@ -81,9 +81,14 @@ const Search = () => {
     cardContainer: {
       width: '100%',
     },
+    card: {
+      height: '300px', // Set the height of the card
+      overflow: 'hidden', // Hide overflowing content
+    },
     image: {
+      width: '100%', // Make sure the image takes up the full width of the card
       height: '200px',
-      objectFit: 'contain',
+      objectFit: 'cover', // Use cover to make sure the aspect ratio of the image is preserved
     },
   };
 
@@ -138,28 +143,28 @@ const Search = () => {
           <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>
             {cardData.map((card, index) => (
               <Col key={index} {...getColProps()}>
-                <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
-                  <div style={styles.cardContainer}>
-                    <Card hoverable>
-                      <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
-                        <img alt={card.title} src={card.img} style={styles.image} />
-                      </Link>
-                      <Meta title={card.title} description={card.description} />
-                      <Progress
-                        percent={(card.purchaseCount / card.targetCount) * 100}
-                        status="active"
-                        strokeColor={{
-                          from: '#108ee9',
-                          to: '#87d068'
-                        }}
-                      />
-                      <div style={styles.linkContainer}>
-                        查看詳情
-                      </div>
-                    </Card>
-                  </div>
-                </Link>
-              </Col>
+              <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+                <div style={styles.cardContainer}>
+                  <Card hoverable style={styles.card}>
+                    <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
+                      <img alt={card.title} src={card.img} style={styles.image} />
+                    </Link>
+                    <Meta title={card.title} description={card.description} />
+                    <Progress
+                      percent={(card.purchaseCount / card.targetCount) * 100}
+                      status="active"
+                      strokeColor={{
+                        from: '#108ee9',
+                        to: '#87d068'
+                      }}
+                    />
+                    <div style={styles.linkContainer}>
+                      查看詳情
+                    </div>
+                  </Card>
+                </div>
+              </Link>
+            </Col>
             ))}
           </Row>
         </div>

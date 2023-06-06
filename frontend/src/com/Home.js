@@ -9,7 +9,7 @@ const { Meta } = Card;
 
 const { Content } = Layout;
 const contentStyle = {
-  width: '70%',
+  width: '80%',
   height: '700px',
   color: '#fff',
   lineHeight: '160px',
@@ -22,7 +22,7 @@ const contentStyle = {
   backgroundPosition: 'center center',
 };
 const contentStyle1 = {
-  width: '70%',
+  width: '80%',
   height: '700px',
   color: '#fff',
   lineHeight: '160px',
@@ -35,27 +35,27 @@ const contentStyle1 = {
   backgroundPosition: 'center center',
 };
 const contentStyle2 = {
-  width: '70%',
+  width: '80%',
   height: '700px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
   margin: 'auto',
   backgroundRepeat: 'no-repeat',
-  backgroundImage: `url('https://i.imgur.com/fQTALGU.jpeg')`,
+  backgroundImage: `url('https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
   // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
 };
 const contentStyle3 = {
-  width: '70%',
+  width: '80%',
   height: '700px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
   margin: 'auto',
   backgroundRepeat: 'no-repeat',
-  backgroundImage: `url('https://i.imgur.com/hTpmDQc.png')`,
+  backgroundImage: `url('https://assets.zeczec.com/asset_633013_image_big.jpg?1684834419')`,
   // backgroundImage: `url('https://huacheng.gz-cmc.com/upload/news/image/2023/01/12/c5ae582e65fb4dca931d4ecd3acde7df.jpeg')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
@@ -89,6 +89,7 @@ const Home = () => {
           end_date: group.end_date,
           least: group.least,
           img: group.image,
+          number: group.number,
           })
         });
         setCardData(dataFromBackend);
@@ -129,8 +130,15 @@ const Home = () => {
       fontWeight: 'bold',
     },
     image: {
-      height: '200px',
-      objectFit: 'contain',
+      height: '200px',  // 限制圖片高度
+      objectFit: 'contain',  // 讓圖片自動調整以適應容器
+      width: '100%',  // 使圖片寬度適應容器
+    },
+    description: {
+      display: '-webkit-box',  // 使用 -webkit-box 來實現文本截斷
+      overflow: 'hidden',  // 隱藏超出範圍的文本
+      WebkitLineClamp: 2,  // 限制文本行數
+      WebkitBoxOrient: 'vertical',  // 使文本垂直排列
     },
   };
 
@@ -192,28 +200,28 @@ const Home = () => {
         <Row gutter={[16, 16]} style={{ width: '100%', justifyContent: 'center' }}>
           {cardData.map((card, index) => (
             <Col key={index} {...getColProps()}>
-              <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
-                <div style={styles.cardContainer}>
-                  <Card hoverable>
-                    <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
-                      <img alt={card.title} src={card.img} style={styles.image} />
-                    </Link>
-                    <Meta title={card.title} description={card.description} />
-                    <Progress
-                      percent={(card.purchaseCount / card.targetCount) * 100}
-                      status="active"
-                      strokeColor={{
-                        from: '#108ee9',
-                        to: '#87d068'
-                      }}
-                    />
-                    <div style={styles.linkContainer}>
-                      查看詳情
-                    </div>
-                  </Card>
-                </div>
-              </Link>
-            </Col>
+            <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
+              <div style={styles.cardContainer}>
+                <Card hoverable>
+                  <Link to={`/detail/?gid=${card.gid}&uid=${card.uid}`}>
+                    <img alt={card.title} src={card.img} style={styles.image} />
+                  </Link>
+                  <Meta title={card.title} description={<div style={styles.description}>{card.description}</div>} />
+                  <Progress
+                    percent={Math.round((card.number / card.least) * 100)}
+                    status="active"
+                    strokeColor={{
+                      from: '#108ee9',
+                      to: '#87d068'
+                    }}
+                  />
+                  <div style={styles.linkContainer}>
+                    查看詳情
+                  </div>
+                </Card>
+              </div>
+            </Link>
+          </Col>
           ))}
         </Row>
       </div>

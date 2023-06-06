@@ -87,14 +87,14 @@ export default function Login() {
               name="username"
               rules={[{ required: true, message: '請輸入用戶名!' }]}
             >
-              <Input prefix={<UserOutlined />} placeholder="用戶名: admin or user" />
+              <Input prefix={<UserOutlined />} placeholder="Admin or User" />
             </Form.Item>
 
             <Form.Item
               name="password"
               rules={[{ required: true, message: '請輸入密碼!' }]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="密碼: ant.design" />
+              <Input.Password prefix={<LockOutlined />} placeholder="Password" />
             </Form.Item>
 
             <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>

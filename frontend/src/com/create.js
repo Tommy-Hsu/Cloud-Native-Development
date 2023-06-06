@@ -14,13 +14,14 @@ const initialValues = {
   session: '',
   type: undefined,
   category: undefined,
+  // leader: '',
   title: '',
   descript: '',
   price: undefined,
   end_date: '',
   least: undefined,
+  number: 0,
   image: '',
-  number:0,
 };
 
 const MyForm = () => {
@@ -66,10 +67,13 @@ const MyForm = () => {
     const category = values.category;
     const price = parseInt(values.price, 10);
     const least = parseInt(values.least, 10);
+    // const leader = session;
     // const session = values.session;
     const image = values.image;
     const number = 0;
-    const end_date = moment(values.end_date).format('YYYY-MM-DD');
+    const end_date = moment(values.end_date).startOf('day').format('YYYY-MM-DD');
+
+    // const end_date = moment(values.end_date).format('YYYY-MM-DD');
 
     console.log('Form values:', {
       session,
@@ -80,13 +84,14 @@ const MyForm = () => {
       price,
       end_date,
       least,
-      image,
       number,
+      image,
     });
 
     try {
       const response = await axios.post('http://localhost:8080/create', {
         session,
+        // leader,
         type,
         category,
         title: values.title,
@@ -114,7 +119,15 @@ const MyForm = () => {
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
     >
-      <img src="https://i.imgur.com/H2pa2Vz.jpeg" alt="Form Illustration" style={{ display: 'block', marginBottom: '20px' }} />
+      <img src="https://images.pexels.com/photos/4836368/pexels-photo-4836368.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Form Illustration" style={{ 
+        display: 'block', 
+        marginBottom: '20px', 
+        marginLeft: 'auto', 
+        marginRight: 'auto',
+        width: '100%', // Adjust as needed
+        height: '500px', // Adjust as needed
+        objectFit: 'cover' // Cover to prevent distortion 
+        }} />
       <Form.Item
         label="名稱"
         name="title"

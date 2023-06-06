@@ -20,6 +20,7 @@ jobs:
       - name: Build and run Docker Compose
         run: |
           docker swarm init
+          docker stack deploy --compose-file docker-compose.yml github_action
           docker-compose up -d
 
       - name: Run tests with Docker Compose

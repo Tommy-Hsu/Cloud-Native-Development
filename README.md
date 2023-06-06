@@ -24,6 +24,22 @@ Run the following command to check status of MongoDB Replica-Set.
 $ docker exec -it mongo1 mongosh --eval "rs.status()"
 ```
 
+## Docker Swarm
+
+1. Init docker swarm.
+```
+$ docker swarm init
+```
+
+2. Build docker images.
+```
+$ docker compose build
+```
+
+3. Start docker swarm servers.
+```
+$ docker stack deploy -c docker-stack.yml ChillTan
+```
 
 ## Available Scripts
 In the project directory, you can run:

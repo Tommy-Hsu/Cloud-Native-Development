@@ -24,13 +24,6 @@ jobs:
         cd backend/user-signupin-server
         pip install -r requirements.txt
         
-    - name: Install dependencies
-      run: |
-        cd backend/user-signupin-server
-        ls -al
-        cat .env
-        source .env
-        echo "$MONGODB_URL"
     - name: Test with unittest 
       run: |
         cd backend/user-signupin-server
@@ -40,7 +33,7 @@ jobs:
       run: |
         cd backend/user-signupin-server
         coverage run -m unittest test.py
-        coverage report -m
+        coverage xml -o coverage.xml
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3

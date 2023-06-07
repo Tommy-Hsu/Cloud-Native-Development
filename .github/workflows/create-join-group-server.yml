@@ -34,6 +34,6 @@ jobs:
         cd backend/create-join-group-server
         coverage run -m unittest test.py
         coverage xml -o coverage.xml
-        
-    - name: Code Coverage Summary
-      uses: irongut/CodeCoverageSummary@v1.3.0
+      
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3

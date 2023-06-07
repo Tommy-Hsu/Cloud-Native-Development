@@ -86,7 +86,7 @@ const Search = () => {
       width: '100%',
     },
     card: {
-      height: '300px', // Set the height of the card
+      height: '350px', // Set the height of the card
       overflow: 'hidden', // Hide overflowing content
     },
     image: {
@@ -153,7 +153,15 @@ const Search = () => {
                     <Link to={`/detail/?gid=${card.gid}&uid=${card.leader}`}>
                       <img alt={card.title} src={card.img} style={styles.image} />
                     </Link>
-                    <Meta title={card.title} description={card.description} />
+                    <Meta
+                      title={card.title}
+                      description={
+                        <div style={{ width: 200, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {card.description}
+                        </div>
+                      }
+                    />
+                    {/* <Meta title={card.title} description={card.description} /> */}
                     <Progress
                       percent={Math.round((card.number / card.least) * 100)}
                       status="active"

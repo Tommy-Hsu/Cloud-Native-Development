@@ -113,18 +113,28 @@ const MyForm = () => {
       wrapperCol={{ span: 12 }}
     >
       <img
-        src="https://images.pexels.com/photos/4836368/pexels-photo-4836368.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        src="https://media.istockphoto.com/id/879044054/photo/student-group-socializing-in-communal-area-of-busy-college.jpg?s=612x612&w=0&k=20&c=o67CEZla78kOffkAhY1888Z_7vNtGNmnPl-wLfNhKtU="
         alt="Form Illustration"
         style={{
           display: 'block',
-          marginBottom: '20px',
+          marginBottom: '10px',
           marginLeft: 'auto',
           marginRight: 'auto',
           width: '100%', // Adjust as needed
-          height: '500px', // Adjust as needed
+          height: '300px', // Adjust as needed
           objectFit: 'contain', // Cover to prevent distortion
         }}
       />
+      {/* <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '300px', // Adjust as needed
+          fontSize: '5em', // Adjust as needed
+          // fontFamily: "'Arial', sans-serif", // Change to your preferred font
+        }}>
+          ChillTan~一起揪團一起玩
+        </div> */}
       <Form.Item
         label="名稱"
         name="title"

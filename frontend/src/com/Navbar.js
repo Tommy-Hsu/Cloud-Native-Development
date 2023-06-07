@@ -23,7 +23,7 @@ const CustomHeader = () => {
 
     const fakeUserData = {
       hoverText: 'Hover me',
-      userIcon: <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" />,
+      userIcon: <img src="https://www.tsmc.com/themes/custom/bootstrap_sass/images/logo.png" />,
     };
 
     setUserData(fakeUserData);
@@ -57,7 +57,7 @@ const CustomHeader = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', marginLeft: '15%' }}>
           <Link to="/" style={{ marginRight: '16px', display: 'flex', alignItems: 'center', color: '#1890ff' }}>
-            <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="Logo" style={{ width: 'auto', height: '30px' }} />
+            <img src="https://www.tsmc.com/themes/custom/bootstrap_sass/images/logo.png" alt="Logo" style={{ width: 'auto', height: '30px' }} />
             <span style={{ marginRight: '16px', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '1.2em' }}>Chilltan</span>
           </Link>
           <span style={{ marginRight: '16px' }}>

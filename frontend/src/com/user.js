@@ -1,6 +1,6 @@
 import { Layout, Menu, Breadcrumb, Avatar, Card, List, Button } from 'antd';
 import React, {Component} from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import { RedditOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 const { Header, Content, Footer } = Layout;
@@ -10,7 +10,8 @@ function Activity(props) {
   const categories = ['遊戲',"戶外","時尚","教育","家庭","文創"];
   const cardStyle = {
     marginBottom: '20px',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)'
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+    width: '300px',  //固定寬度
   };
 
   const listStyle = {
@@ -23,13 +24,19 @@ function Activity(props) {
     padding: '10px 0',
     borderBottom: '1px solid #f0f0f0'
   };
+  const descriptionStyle = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  };
 
   return(
     <Card title={props.activity.title} style={cardStyle}>
     <ul style={listStyle}>       
         <li style={listItemStyle}>活動種類: {types[props.activity.type]}</li>
         <li style={listItemStyle}>活動類別: {categories[props.activity.category]}</li>    
-        <li style={listItemStyle}>活動描述: {props.activity.descript}</li>
+        
+        {/* <li style={listItemStyle}>活動描述: {props.activity.descript}</li> */}
         <li style={listItemStyle}>剩餘時間: {props.activity.end_date}</li>
         {/* <li style={listItemStyle}>提案人：{props.activity.number}</li> */}
         <Button>
@@ -127,11 +134,10 @@ export default class UserGroupList extends Component {
     // );
 
     const contentStyle = {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: '20px',
       justifyContent: 'center',
-      gap: '20px'
     };
 
     const headerStyle = {
@@ -144,24 +150,38 @@ export default class UserGroupList extends Component {
 
     const avatarStyle = {
       marginBottom: '20px'
+      
+    };
+    const cardContainerStyle = {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: '20px',
+      justifyContent: 'space-between',
+      width: '100%'
     };
     return (
       <Layout className="layout">
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
           </Breadcrumb>
           <div className="site-layout-content" style={contentStyle}>
-            <Avatar size={64} icon={<UserOutlined />} style={avatarStyle} />
+            <Avatar shape="square" size={128} src="https://cdn.iconscout.com/icon/free/png-512/free-tsmc-282974.png?f=avif&w=256" style={avatarStyle} />
             <h2 style={headerStyle}>發起的活動</h2>
-              {this.host_activityList()}
+            <div style={cardContainerStyle}>
+            {this.host_activityList()}
+              </div>
+              {/* {this.host_activityList()} */}
           </div>
           <br/>
           <div className="site-layout-content" style={contentStyle}>
-            <Avatar size={64} icon={<UserOutlined />} style={avatarStyle} />
+            <Avatar shape="square" size={128} src="https://cdn.iconscout.com/icon/free/png-512/free-tsmc-282974.png?f=avif&w=256" style={avatarStyle} />
             <h2 style={headerStyle}>參加的活動</h2>
-              {this.join_activityList()}
+            <div style={cardContainerStyle}>
+            {this.join_activityList()}
+          </div>
+              {/* {this.join_activityList()} */}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>ChillTan</Footer>

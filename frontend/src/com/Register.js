@@ -46,7 +46,7 @@ export default function Register() {
           <div style={{ textAlign: 'center', marginBottom: '1em' }}>
             <Link to="/">
               <img
-                src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+                src="https://www.tsmc.com/themes/custom/bootstrap_sass/images/logo.png"
                 alt="logo"
                 style={{ width: '30%', marginBottom: '1em' }}
               />

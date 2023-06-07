@@ -90,7 +90,7 @@ const CustomHeader = () => {
                 </Link>
               </span>
               <Link to="/register">
-                <Button style={{ borderRadius: '5px' }}>注冊</Button>
+                <Button style={{ borderRadius: '5px' }}>註冊</Button>
               </Link>
             </>
           )}

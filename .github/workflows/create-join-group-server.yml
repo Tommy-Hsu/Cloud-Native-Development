@@ -31,7 +31,7 @@ jobs:
         
     - name: Test Coverage 
       run: |
-        cd backend/user-signupin-server
+        cd backend/create-join-group-server
         coverage run -m unittest test.py
         coverage report -m
         

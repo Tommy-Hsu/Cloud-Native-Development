@@ -21,3 +21,5 @@ six==1.16.0
 urllib3==2.0.2
 Werkzeug==2.3.4
 win32-setctime==1.1.0
+coverage==7.2.7
+freezegun==0.3.4

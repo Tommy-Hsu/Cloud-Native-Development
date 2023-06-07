@@ -36,6 +36,6 @@ jobs:
         coverage report -m
         
     - name: Code Coverage Summary
-      uses: irongut/CodeCoverageSummary@v1.3.0
       with:
           working-directory: backend/create-join-group-server
+      uses: irongut/CodeCoverageSummary@v1.3.0

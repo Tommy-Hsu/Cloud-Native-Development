@@ -36,7 +36,4 @@ jobs:
         coverage xml -o coverage.xml
         
     - name: Code Coverage Summary
-      with:
-          filename: backend/create-join-group-server/coverage.xml
-          badge: https://github.com/Tommy-Hsu/Cloud-Native-Development/actions/workflows/create-join-group-server.yml/badge.svg
       uses: irongut/CodeCoverageSummary@v1.3.0

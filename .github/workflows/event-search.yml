@@ -1,4 +1,4 @@
-name: user-signupin-server CI
+name: event-search-server CI
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:

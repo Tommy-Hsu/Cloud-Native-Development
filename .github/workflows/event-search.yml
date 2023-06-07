@@ -1,0 +1,25 @@
+name: user-signupin-server CI
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    steps:
+    - uses: actions/checkout@v3
+  
+    - name: Installation 
+      run: |
+        cd backend/event-search
+        npm i
+        
+    - name: Test Coverage 
+      run: |
+        cd backend/event-search
+        npm run test-coverage
+        
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
